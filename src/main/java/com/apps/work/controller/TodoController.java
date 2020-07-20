@@ -5,6 +5,7 @@ import com.apps.work.repository.TodoRepository;
 import com.apps.work.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,7 @@ public class TodoController {
                 dateFormat, false));
     }
 
+    @Secured("USER")
     @RequestMapping(value = "/list-todos", method = RequestMethod.GET)
     public String showTodosList(ModelMap model) {
         String user = getLoggedInUserName();
