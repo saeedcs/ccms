@@ -1,4 +1,4 @@
-package com.apps.work.security;
+package com.apps.work.config;
 
 import java.util.Locale;
 
