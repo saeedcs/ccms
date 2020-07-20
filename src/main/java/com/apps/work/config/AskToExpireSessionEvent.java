@@ -1,4 +1,4 @@
-package com.apps.work.controller;
+package com.apps.work.config;
 
 import org.springframework.context.ApplicationEvent;
 
