@@ -33,7 +33,6 @@ public class FruitController {
     @RequestMapping(value = "/fruit", method = RequestMethod.GET)
     public String saveFruit() {
         Fruit fruit = new Fruit();
-        fruit.setDone(true);
         fruit.setTaste("good");
         fruit.setPurchaseDateTime(new Date(Calendar.getInstance().getTimeInMillis()));
         service.saveFruit(fruit);
