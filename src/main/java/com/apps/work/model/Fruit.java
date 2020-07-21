@@ -15,29 +15,17 @@ public class Fruit {
     @Column(length = 15)
     private String taste;
 
-    @Basic(optional = true)
-    @Column(name = "purchase_date_time", insertable = true, updatable = true)
+    @Column(name = "purchase_date_time", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date purchaseDateTime;
-
-    private boolean isDone;
 
     public Fruit() {
         super();
     }
 
-    public Fruit(int id, String taste, Date purchaseDateTime, boolean isDone) {
+    public Fruit(int id, String taste, Date purchaseDateTime) {
         this.id = id;
         this.taste = taste;
-        this.purchaseDateTime = purchaseDateTime;
-        this.isDone = isDone;
-    }
-
-    public Date getPurchaseDateTime() {
-        return purchaseDateTime;
-    }
-
-    public void setPurchaseDateTime(Date purchaseDateTime) {
         this.purchaseDateTime = purchaseDateTime;
     }
 
@@ -57,38 +45,32 @@ public class Fruit {
         this.taste = taste;
     }
 
-    public boolean isDone() {
-        return isDone;
+    public Date getPurchaseDateTime() {
+        return purchaseDateTime;
     }
 
-    public void setDone(boolean done) {
-        isDone = done;
+    public void setPurchaseDateTime(Date purchaseDateTime) {
+        this.purchaseDateTime = purchaseDateTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Fruit fruit = (Fruit) o;
+
+        if (id != fruit.id) return false;
+        if (taste != null ? !taste.equals(fruit.taste) : fruit.taste != null) return false;
+        return purchaseDateTime != null ? purchaseDateTime.equals(fruit.purchaseDateTime) : fruit.purchaseDateTime == null;
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
+        int result = id;
+        result = 31 * result + (taste != null ? taste.hashCode() : 0);
+        result = 31 * result + (purchaseDateTime != null ? purchaseDateTime.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Fruit other = (Fruit) obj;
-        if (id != other.id) {
-            return false;
-        }
-        return true;
     }
 
     @Override
@@ -97,7 +79,6 @@ public class Fruit {
                 "id=" + id +
                 ", taste='" + taste + '\'' +
                 ", purchaseDateTime=" + purchaseDateTime +
-                ", isDone=" + isDone +
                 '}';
     }
 }
