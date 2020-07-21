@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html>
 <head>
-<title>Todos Application</title>
+<title>CCMS App</title>
     <link href="webjars/bootstrap/4.5.0/css/bootstrap.min.css"
     rel="stylesheet">
     <link href="webjars/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
