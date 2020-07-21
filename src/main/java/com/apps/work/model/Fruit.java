@@ -10,7 +10,7 @@ import java.util.Date;
 public class Fruit {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(length = 15)
     private String taste;
@@ -22,6 +22,54 @@ public class Fruit {
     @Column(name = "created_on", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
+
+    @Column(length = 100)
+    private String createdBy;
+
+    @Column(name = "changed_on", nullable = true)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date changedOn;
+
+    @Column(length = 100)
+    private String changedBy;
+
+    public Fruit() {
+        super();
+    }
+
+    public Fruit(Integer id, String taste, Date purchaseDateTime, Date createdOn, String createdBy, Date changedOn, String changedBy) {
+        this.id = id;
+        this.taste = taste;
+        this.purchaseDateTime = purchaseDateTime;
+        this.createdOn = createdOn;
+        this.createdBy = createdBy;
+        this.changedOn = changedOn;
+        this.changedBy = changedBy;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTaste() {
+        return taste;
+    }
+
+    public void setTaste(String taste) {
+        this.taste = taste;
+    }
+
+    public Date getPurchaseDateTime() {
+        return purchaseDateTime;
+    }
+
+    public void setPurchaseDateTime(Date purchaseDateTime) {
+        this.purchaseDateTime = purchaseDateTime;
+    }
 
     public Date getCreatedOn() {
         return createdOn;
@@ -55,55 +103,6 @@ public class Fruit {
         this.changedBy = changedBy;
     }
 
-    @Column(length = 100)
-    private String createdBy;
-
-    @Column(name = "changed_on", nullable = true)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date changedOn;
-
-    @Column(length = 100)
-    private String changedBy;
-
-    public Fruit() {
-        super();
-    }
-
-
-    public Fruit(int id, String taste, Date purchaseDateTime, Date createdOn, String createdBy, Date changedOn, String changedBy) {
-        this.id = id;
-        this.taste = taste;
-        this.purchaseDateTime = purchaseDateTime;
-        this.createdOn = createdOn;
-        this.createdBy = createdBy;
-        this.changedOn = changedOn;
-        this.changedBy = changedBy;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTaste() {
-        return taste;
-    }
-
-    public void setTaste(String taste) {
-        this.taste = taste;
-    }
-
-    public Date getPurchaseDateTime() {
-        return purchaseDateTime;
-    }
-
-    public void setPurchaseDateTime(Date purchaseDateTime) {
-        this.purchaseDateTime = purchaseDateTime;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -111,7 +110,7 @@ public class Fruit {
 
         Fruit fruit = (Fruit) o;
 
-        if (id != fruit.id) return false;
+        if (id != null ? !id.equals(fruit.id) : fruit.id != null) return false;
         if (taste != null ? !taste.equals(fruit.taste) : fruit.taste != null) return false;
         if (purchaseDateTime != null ? !purchaseDateTime.equals(fruit.purchaseDateTime) : fruit.purchaseDateTime != null)
             return false;
@@ -123,7 +122,7 @@ public class Fruit {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (taste != null ? taste.hashCode() : 0);
         result = 31 * result + (purchaseDateTime != null ? purchaseDateTime.hashCode() : 0);
         result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);

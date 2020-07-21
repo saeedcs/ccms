@@ -8,7 +8,7 @@ import java.util.Date;
 public class Page {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(length = 255)
     private String pageTitle;
@@ -37,9 +37,10 @@ public class Page {
     private String changedBy;
 
     public Page() {
+        super();
     }
 
-    public Page(int id, String pageTitle, String pageBody, String author, boolean showOnMainPage, Date createdOn, String createdBy, Date changedOn, String changedBy) {
+    public Page(Integer id, String pageTitle, String pageBody, String author, boolean showOnMainPage, Date createdOn, String createdBy, Date changedOn, String changedBy) {
         this.id = id;
         this.pageTitle = pageTitle;
         this.pageBody = pageBody;
@@ -51,11 +52,11 @@ public class Page {
         this.changedBy = changedBy;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -130,8 +131,8 @@ public class Page {
 
         Page page = (Page) o;
 
-        if (id != page.id) return false;
         if (showOnMainPage != page.showOnMainPage) return false;
+        if (id != null ? !id.equals(page.id) : page.id != null) return false;
         if (pageTitle != null ? !pageTitle.equals(page.pageTitle) : page.pageTitle != null) return false;
         if (pageBody != null ? !pageBody.equals(page.pageBody) : page.pageBody != null) return false;
         if (author != null ? !author.equals(page.author) : page.author != null) return false;
@@ -143,7 +144,7 @@ public class Page {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (pageTitle != null ? pageTitle.hashCode() : 0);
         result = 31 * result + (pageBody != null ? pageBody.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
