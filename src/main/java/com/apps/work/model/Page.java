@@ -20,7 +20,7 @@ public class Page {
     private String author;
 
     @Column
-    private boolean showOnMainPage;
+    private Boolean showOnMainPage;
 
     @Column(name = "created_on", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
@@ -40,7 +40,7 @@ public class Page {
         super();
     }
 
-    public Page(Integer id, String pageTitle, String pageBody, String author, boolean showOnMainPage, Date createdOn, String createdBy, Date changedOn, String changedBy) {
+    public Page(Integer id, String pageTitle, String pageBody, String author, Boolean showOnMainPage, Date createdOn, String createdBy, Date changedOn, String changedBy) {
         this.id = id;
         this.pageTitle = pageTitle;
         this.pageBody = pageBody;
@@ -84,11 +84,11 @@ public class Page {
         this.author = author;
     }
 
-    public boolean isShowOnMainPage() {
+    public Boolean getShowOnMainPage() {
         return showOnMainPage;
     }
 
-    public void setShowOnMainPage(boolean showOnMainPage) {
+    public void setShowOnMainPage(Boolean showOnMainPage) {
         this.showOnMainPage = showOnMainPage;
     }
 
@@ -131,11 +131,12 @@ public class Page {
 
         Page page = (Page) o;
 
-        if (showOnMainPage != page.showOnMainPage) return false;
         if (id != null ? !id.equals(page.id) : page.id != null) return false;
         if (pageTitle != null ? !pageTitle.equals(page.pageTitle) : page.pageTitle != null) return false;
         if (pageBody != null ? !pageBody.equals(page.pageBody) : page.pageBody != null) return false;
         if (author != null ? !author.equals(page.author) : page.author != null) return false;
+        if (showOnMainPage != null ? !showOnMainPage.equals(page.showOnMainPage) : page.showOnMainPage != null)
+            return false;
         if (createdOn != null ? !createdOn.equals(page.createdOn) : page.createdOn != null) return false;
         if (createdBy != null ? !createdBy.equals(page.createdBy) : page.createdBy != null) return false;
         if (changedOn != null ? !changedOn.equals(page.changedOn) : page.changedOn != null) return false;
@@ -148,7 +149,7 @@ public class Page {
         result = 31 * result + (pageTitle != null ? pageTitle.hashCode() : 0);
         result = 31 * result + (pageBody != null ? pageBody.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
-        result = 31 * result + (showOnMainPage ? 1 : 0);
+        result = 31 * result + (showOnMainPage != null ? showOnMainPage.hashCode() : 0);
         result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);
         result = 31 * result + (createdBy != null ? createdBy.hashCode() : 0);
         result = 31 * result + (changedOn != null ? changedOn.hashCode() : 0);
