@@ -29,6 +29,7 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     public User() {
+        super();
     }
 
     public User(Long id, String username, String password, boolean enabled, Set<Role> roles) {

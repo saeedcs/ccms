@@ -14,6 +14,7 @@ public class Role {
     private String name;
 
     public Role() {
+        super();
     }
 
     public Role(Long id, String name) {
