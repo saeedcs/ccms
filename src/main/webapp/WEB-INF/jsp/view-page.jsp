@@ -14,9 +14,7 @@
                     <img src="https://www.shakeout.org/2008/downloads/ShakeOut_BannerAds_GetReady_728x90_v3.gif" alt="" />
                 </div>
             </div>
-            <c:forEach items="${pages}" var="page">
-            <a href="/page/view?id=${page.id}" class="post-list">
-                <div class="description">
+                 <div class="description">
                     <h3>${page.pageTitle}</h3>
 
                     <div class="author-info">
@@ -28,8 +26,6 @@
                         </div>
                     </div>
                 </div>
-            </a>
-            </c:forEach>
 
         </div>
         <div class="col-md-2 google-add-vertical">
