@@ -33,11 +33,14 @@ public class Fruit {
     @Column(length = 100)
     private String changedBy;
 
+    @ManyToOne(fetch=FetchType.LAZY, cascade={ CascadeType.MERGE })
+    @JoinColumn(name = "page_id")
+    private Page page;
+
     public Fruit() {
-        super();
     }
 
-    public Fruit(Integer id, String taste, Date purchaseDateTime, Date createdOn, String createdBy, Date changedOn, String changedBy) {
+    public Fruit(Integer id, String taste, Date purchaseDateTime, Date createdOn, String createdBy, Date changedOn, String changedBy, Page page) {
         this.id = id;
         this.taste = taste;
         this.purchaseDateTime = purchaseDateTime;
@@ -45,6 +48,7 @@ public class Fruit {
         this.createdBy = createdBy;
         this.changedOn = changedOn;
         this.changedBy = changedBy;
+        this.page = page;
     }
 
     public Integer getId() {
@@ -103,6 +107,14 @@ public class Fruit {
         this.changedBy = changedBy;
     }
 
+    public Page getPage() {
+        return page;
+    }
+
+    public void setPage(Page page) {
+        this.page = page;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -117,7 +129,8 @@ public class Fruit {
         if (createdOn != null ? !createdOn.equals(fruit.createdOn) : fruit.createdOn != null) return false;
         if (createdBy != null ? !createdBy.equals(fruit.createdBy) : fruit.createdBy != null) return false;
         if (changedOn != null ? !changedOn.equals(fruit.changedOn) : fruit.changedOn != null) return false;
-        return changedBy != null ? changedBy.equals(fruit.changedBy) : fruit.changedBy == null;
+        if (changedBy != null ? !changedBy.equals(fruit.changedBy) : fruit.changedBy != null) return false;
+        return page != null ? page.equals(fruit.page) : fruit.page == null;
     }
 
     @Override
@@ -129,6 +142,7 @@ public class Fruit {
         result = 31 * result + (createdBy != null ? createdBy.hashCode() : 0);
         result = 31 * result + (changedOn != null ? changedOn.hashCode() : 0);
         result = 31 * result + (changedBy != null ? changedBy.hashCode() : 0);
+        result = 31 * result + (page != null ? page.hashCode() : 0);
         return result;
     }
 
@@ -142,6 +156,7 @@ public class Fruit {
                 ", createdBy='" + createdBy + '\'' +
                 ", changedOn=" + changedOn +
                 ", changedBy='" + changedBy + '\'' +
+                ", page=" + page +
                 '}';
     }
 }
