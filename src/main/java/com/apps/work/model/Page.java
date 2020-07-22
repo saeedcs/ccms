@@ -1,7 +1,10 @@
 package com.apps.work.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "page")
@@ -35,6 +38,18 @@ public class Page {
 
     @Column(length = 100)
     private String changedBy;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "page", orphanRemoval = true)
+    @Cascade({org.hibernate.annotations.CascadeType.ALL })
+    private Set<Fruit> fruits;
+
+    public Set<Fruit> getFruits() {
+        return fruits;
+    }
+
+    public void setFruits(Set<Fruit> fruits) {
+        this.fruits = fruits;
+    }
 
     public Page() {
         super();
