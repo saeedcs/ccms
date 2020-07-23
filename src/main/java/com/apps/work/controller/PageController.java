@@ -5,10 +5,13 @@ import com.apps.work.model.Todo;
 import com.apps.work.repository.TodoRepository;
 import com.apps.work.service.PageService;
 import com.apps.work.service.TodoService;
+import net.minidev.json.JSONObject;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,10 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
@@ -58,6 +58,38 @@ public class PageController {
             logger.error(e);
         }
         return "view-page";
+    }
+
+    //@Secured("USER")
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String createPage(ModelMap model, @RequestParam(required=false) String id) {
+        try {
+            if(id != null && !id.equals("")) {
+                Optional<Page> pageOptional = pageService.getPage(Integer.parseInt(id));
+                if (pageOptional.isPresent()) {
+                    model.addAttribute("page", pageOptional.get());
+                }
+            }
+        } catch (Exception e) {
+            logger.error(e);
+        }
+        return "create-page";
+    }
+
+    //@Secured("USER")
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<JSONObject> postCreatePage(ModelMap model, @RequestBody(required = false) Page page) {
+        JSONObject result = new JSONObject();
+        try {
+
+
+
+        } catch (Exception e) {
+            logger.error(e);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
 }

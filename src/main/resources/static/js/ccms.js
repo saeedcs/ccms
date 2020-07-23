@@ -8,6 +8,7 @@ var doAjax_params_default = {
     'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
     'dataType': 'json',
     'data': {},
+    'headers': undefined,
     'beforeSendCallbackFunction': null,
     'successCallbackFunction': null,
     'completeCallbackFunction': null,
@@ -22,6 +23,7 @@ function doAjax(doAjax_params) {
     var contentType = doAjax_params['contentType'];
     var dataType = doAjax_params['dataType'];
     var data = doAjax_params['data'];
+    var headers = doAjax_params['headers'];
     var beforeSendCallbackFunction = doAjax_params['beforeSendCallbackFunction'];
     var successCallbackFunction = doAjax_params['successCallbackFunction'];
     var completeCallbackFunction = doAjax_params['completeCallbackFunction'];
@@ -38,6 +40,7 @@ function doAjax(doAjax_params) {
         type: requestType,
         contentType: contentType,
         dataType: dataType,
+        headers: headers,
         data: data,
         beforeSend: function(jqXHR, settings) {
             if (typeof beforeSendCallbackFunction === "function") {

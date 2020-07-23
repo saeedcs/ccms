@@ -26,7 +26,15 @@
                         </div>
                     </div>
                 </div>
+            <div class="form-action">
+                <div class="item">
+                    <buton type="button" class="btn btn-primary" onclick="page.editPage(${page.id})">Edit</buton>
+                </div>
 
+                <div class="item text-right">
+                    <buton type="reset" class="btn btn-light">Cancel</buton>
+                </div>
+            </div>
         </div>
         <div class="col-md-2 google-add-vertical">
             <div class="add">
@@ -37,3 +45,11 @@
 </div>
 
 <jsp:include page="common/footer.jsp" />
+
+<script>
+    var page = {
+        editPage: function(id) {
+            window.location.href = '/page/create?id=' + id;
+        }
+    }
+</script>

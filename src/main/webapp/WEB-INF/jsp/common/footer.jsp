@@ -13,5 +13,7 @@
 <script type="text/javascript" src="/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="https://unpkg.com/aos@3.0.0-beta.6/dist/aos.js"></script>
 <script type="text/javascript" src="/js/custom.js"></script>
+<script type="text/javascript" src="/js/constant.js"></script>
+<script type="text/javascript" src="/js/ccms.js"></script>
 </body>
 </html>
