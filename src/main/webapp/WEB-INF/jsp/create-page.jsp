@@ -196,7 +196,7 @@
             } else {
                 data['showMain'] = false;
             }
-            var params = $.extend({}, doAjax_params_default);
+            let params = $.extend({}, doAjax_params_default);
             params['url'] = appRoutes.PAGE_LIST + appRoutes.PAGE_CREATE;
             params['data'] = JSON. stringify(data);
             params['beforeSendCallbackFunction'] = page.beforeCreatingPage;
@@ -244,7 +244,7 @@
             data['seoUri'] = seoUri;
             data['id'] = id;
 
-            var params = $.extend({}, doAjax_params_default);
+            let params = $.extend({}, doAjax_params_default);
             params['url'] = appRoutes.PAGE_LIST + appRoutes.SEO_URI_CHECK;
             params['data'] = data;
             params['successCallbackFunction'] = page.isSeoUriDuplicate;
