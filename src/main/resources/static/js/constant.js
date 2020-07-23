@@ -7,7 +7,7 @@ const appObjects = {
         invalid: 'is-invalid',
         visible: 'visible',
         invisible: 'invisible',
-        errClass: 'err'
+        errClass: 'Err'
     },
     ERROR_MSG: {
         email: 'Please enter your correct email',

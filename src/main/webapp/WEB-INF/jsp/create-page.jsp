@@ -35,12 +35,16 @@
             <div class="form-data">
                 <div class="form-group">
                     <label>Title</label>
-                    <input name="pageTitle" id="pageTitle" type="text" class="form-control" placeholder="Enter Post Title" value="${page.pageTitle}"/>
+                    <input name="pageTitle" id="pageTitle" type="text" class="form-control" placeholder="Enter Post Title" value="${page.pageTitle}"
+                           onblur="page.makeSeoUrl(${(page.id)});" onkeyup="page.makeSeoUrl(${(page.id)});"/>
+                    <span id="pageTitleErr" class="invalid-feedback invisible"></span>
                 </div>
 
                 <div class="form-group">
                     <label>SEO URI</label>
-                    <input name="seoUri" id="seoUri" type="text" class="form-control" placeholder="Enter SEO URI e.g. https://something.com"  value="${page.seoUri}" />
+                    <input name="seoUri" id="seoUri" type="text" class="form-control" placeholder="Enter SEO URI e.g. https://something.com"  value="${page.seoUri}"
+                           onblur="page.checkSeoUriDuplicate(this.value, ${(page.id)})" onkeyup="page.checkSeoUriDuplicate(this.value, ${(page.id)})"/>
+                    <span id="seoUriErr" class="invalid-feedback invisible">Your SEO URI is not unique, Please change it</span>
                 </div>
 
                 <div class="form-group">
@@ -213,6 +217,49 @@
             $(document).ajaxSend(function (e, xhr, options) {
                 xhr.setRequestHeader(header, token);
             });
+        },
+        toSeoUrl: function (url) {
+            return url.toString()               // Convert to string
+                .normalize('NFD')               // Change diacritics
+                .replace(/[\u0300-\u036f]/g,'') // Remove illegal characters
+                .replace(/\s+/g,'-')            // Change whitespace to dashes
+                .toLowerCase()                  // Change to lowercase
+                .replace(/&/g,'-and-')          // Replace ampersand
+                .replace(/[^a-z0-9\-]/g,'')     // Remove anything that is not a letter, number or dash
+                .replace(/-+/g,'-')             // Remove duplicate dashes
+                .replace(/^-*/,'')              // Remove starting dashes
+                .replace(/-*$/,'');             // Remove trailing dashes
+        },
+        makeSeoUrl: function (id) {
+            let pageTitle = document.getElementById('pageTitle').value;
+
+            if(pageTitle != undefined && pageTitle.trim() != '') {
+                let seoUri = document.getElementById('seoUri').value = page.toSeoUrl(pageTitle);
+                this.checkSeoUriDuplicate(seoUri, id);
+            }
+
+        },
+        checkSeoUriDuplicate: function(seoUri, id) {
+            let data = {}
+            data['seoUri'] = seoUri;
+            data['id'] = id;
+
+            var params = $.extend({}, doAjax_params_default);
+            params['url'] = appRoutes.PAGE_LIST + appRoutes.SEO_URI_CHECK;
+            params['data'] = data;
+            params['successCallbackFunction'] = page.isSeoUriDuplicate;
+            params['beforeSendCallbackFunction'] = page.beforeCreatingPage;
+            params['requestType'] = appObjects.REQUEST_TYPE.post;
+            //params['contentType'] = 'application/json';
+            doAjax(params);
+        },
+        isSeoUriDuplicate: function(response) {
+            console.log(response);
+            if(response.exists === true) {
+                validateForms.invalidField('seoUri', appObjects.ERROR_MSG.seoUriExists);
+            } else {
+                validateForms.validField('seoUri')
+            }
         }
     }
 </script>

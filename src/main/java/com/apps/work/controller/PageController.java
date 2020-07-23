@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -90,6 +92,28 @@ public class PageController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    //@Secured("USER")
+    @RequestMapping(value = "/check-seo-uri", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Boolean> checkSeoUri(ModelMap model, @RequestParam String seoUri, @RequestParam(required = false) String id) {
+        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
+        try {
+            if(seoUri != null && !seoUri.equals("")) {
+                if(id == null || id.equals("")) {
+                    id = new String("0");
+                }
+                Optional<Page> pageOptional = Optional.ofNullable(pageService.findBySeoUri(seoUri, id));
+                if (pageOptional.isPresent()) {
+                    resultMap.put("exists", true);
+                    return resultMap;
+                }
+            }
+        } catch (Exception e) {
+            logger.error(e);
+        }
+        return resultMap;
     }
 
 }
