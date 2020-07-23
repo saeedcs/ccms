@@ -25,7 +25,7 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
-    public Page findBySeoUri(String seoUri) {
-        return pageRepository.findBySeoUri(seoUri);
+    public Page findBySeoUri(String seoUri, String id) {
+        return pageRepository.findBySeoUriAndIdNot(seoUri, Integer.parseInt(id));
     }
 }
