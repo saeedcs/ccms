@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "article")
+@Table(name = "article.jsp")
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,6 +14,9 @@ public class Article {
 
     @Column(length = 255)
     private String articleTitle;
+
+    @Column(length = 255)
+    private String seoUri;
 
     @Column(columnDefinition="TEXT")
     private String articleBody;
@@ -43,14 +46,15 @@ public class Article {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "article", orphanRemoval = true)
     @Cascade({org.hibernate.annotations.CascadeType.ALL })
-    private Set<com.apps.work.model.Comments> comments;
+    private Set<Comment> comments;
 
     public Article() {
     }
 
-    public Article(Integer id, String articleTitle, String articleBody, String author, String excerpt, String mainPageImg, Date createdOn, String createdBy, Date changedOn, String changedBy, Set<Comments> comments) {
+    public Article(Integer id, String articleTitle, String seoUri, String articleBody, String author, String excerpt, String mainPageImg, Date createdOn, String createdBy, Date changedOn, String changedBy, Set<Comment> comments) {
         this.id = id;
         this.articleTitle = articleTitle;
+        this.seoUri = seoUri;
         this.articleBody = articleBody;
         this.author = author;
         this.excerpt = excerpt;
@@ -76,6 +80,14 @@ public class Article {
 
     public void setArticleTitle(String articleTitle) {
         this.articleTitle = articleTitle;
+    }
+
+    public String getSeoUri() {
+        return seoUri;
+    }
+
+    public void setSeoUri(String seoUri) {
+        this.seoUri = seoUri;
     }
 
     public String getArticleBody() {
@@ -142,11 +154,11 @@ public class Article {
         this.changedBy = changedBy;
     }
 
-    public Set<Comments> getComments() {
+    public Set<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(Set<Comments> comments) {
+    public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
 
@@ -160,6 +172,7 @@ public class Article {
         if (id != null ? !id.equals(article.id) : article.id != null) return false;
         if (articleTitle != null ? !articleTitle.equals(article.articleTitle) : article.articleTitle != null)
             return false;
+        if (seoUri != null ? !seoUri.equals(article.seoUri) : article.seoUri != null) return false;
         if (articleBody != null ? !articleBody.equals(article.articleBody) : article.articleBody != null) return false;
         if (author != null ? !author.equals(article.author) : article.author != null) return false;
         if (excerpt != null ? !excerpt.equals(article.excerpt) : article.excerpt != null) return false;
@@ -175,6 +188,7 @@ public class Article {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (articleTitle != null ? articleTitle.hashCode() : 0);
+        result = 31 * result + (seoUri != null ? seoUri.hashCode() : 0);
         result = 31 * result + (articleBody != null ? articleBody.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
         result = 31 * result + (excerpt != null ? excerpt.hashCode() : 0);
@@ -192,6 +206,7 @@ public class Article {
         return "Article{" +
                 "id=" + id +
                 ", articleTitle='" + articleTitle + '\'' +
+                ", seoUri='" + seoUri + '\'' +
                 ", articleBody='" + articleBody + '\'' +
                 ", author='" + author + '\'' +
                 ", excerpt='" + excerpt + '\'' +

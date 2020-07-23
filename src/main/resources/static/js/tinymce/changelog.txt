@@ -89,8 +89,8 @@ Version 5.2.0 (2020-02-13)
     Changed the `requireLangPack` API to wait until the plugin has been loaded before loading the language pack #TINY-3716
     Changed the formatter so `style_formats` are registered before the initial content is loaded into the editor #TINY-4238
     Changed media plugin to use https protocol for media urls by default #TINY-4577
-    Changed the parser to treat CDATA nodes as bogus HTML comments to match the HTML parsing spec. A new `preserve_cdata` setting has been added to preserve CDATA nodes if required #TINY-4625
-    Fixed incorrect parsing of malformed/bogus HTML comments #TINY-4625
+    Changed the parser to treat CDATA nodes as bogus HTML comment to match the HTML parsing spec. A new `preserve_cdata` setting has been added to preserve CDATA nodes if required #TINY-4625
+    Fixed incorrect parsing of malformed/bogus HTML comment #TINY-4625
     Fixed `quickbars` selection toolbar appearing on non-editable elements #TINY-4359
     Fixed bug with alignment toolbar buttons sometimes not changing state correctly #TINY-4139
     Fixed the `codesample` toolbar button not toggling when selecting code samples other than HTML #TINY-4504
@@ -121,7 +121,7 @@ Version 5.1.6 (2020-01-28)
     Fixed the context menu not showing in certain cases with hybrid devices #TINY-4569
     Fixed the context menu opening in the wrong location when the target is the editor body #TINY-4568
     Fixed the `image` plugin not respecting the `automatic_uploads` setting when uploading local images #TINY-4287
-    Fixed security issue related to parsing HTML comments and CDATA #TINY-4544
+    Fixed security issue related to parsing HTML comment and CDATA #TINY-4544
 Version 5.1.5 (2019-12-19)
     Fixed the UI not working with hybrid devices that accept both touch and mouse events #TNY-4521
     Fixed the `charmap` dialog initially focusing the first tab of the dialog instead of the search input field #TINY-4342
@@ -133,7 +133,7 @@ Version 5.1.4 (2019-12-11)
     Fixed search and replace not cycling through results when searching using special characters #TINY-4506
     Fixed the `visualchars` plugin converting HTML-like text to DOM elements in certain cases #TINY-4507
     Fixed an issue with the `paste` plugin not sanitizing content in some cases #TINY-4510
-    Fixed HTML comments incorrectly being parsed in certain cases #TINY-4511
+    Fixed HTML comment incorrectly being parsed in certain cases #TINY-4511
 Version 5.1.3 (2019-12-04)
     Fixed sticky toolbar not undocking when fullscreen mode is activated #TINY-4390
     Fixed the "Current Window" target not applying when updating links using the link dialog #TINY-4063
@@ -897,7 +897,7 @@ Version 4.6.4 (2017-06-13)
     Fixed bug where the compat3x plugin wasn't working since the global tinymce references wasn't resolved correctly.
     Fixed bug where the preview plugin wasn't encoding the base url passed into the iframe contents producing a xss bug.
     Fixed bug where the dom parser/serializer wasn't handling some special elements like noframes, title and xmp.
-    Fixed bug where the dom parser/serializer wasn't handling cdata sections with comments inside.
+    Fixed bug where the dom parser/serializer wasn't handling cdata sections with comment inside.
     Fixed bug where the editor would scroll to the top of the editable area if a dialog was closed in inline mode.
     Fixed bug where the link dialog would not display the right rel value if rel_list was configured.
     Fixed bug where the context menu would select images on some platforms but not others.
@@ -1089,7 +1089,7 @@ Version 4.5.0 (2016-11-23)
     Fixed so it's possible to specify what css properties you want to preview on specific formats.
     Fixed so anchors are contentEditable=false while within the editor.
     Fixed so selected contents gets wrapped in a inline code element by the codesample plugin.
-    Fixed so conditional comments gets properly stripped independent of case. Patch contributed by Georgii Dolzhykov.
+    Fixed so conditional comment gets properly stripped independent of case. Patch contributed by Georgii Dolzhykov.
     Fixed so some escaped css sequences gets properly handled. Patch contributed by Georgii Dolzhykov.
     Fixed so notifications with the same message doesn't get displayed at the same time.
     Fixed so F10 can be used as an alternative key to focus to the toolbar.
@@ -1500,7 +1500,7 @@ Version 4.1.5 (2014-09-09)
     Fixed so the default action of windows closing can be prevented by blocking the default action of the close event.
     Fixed so nodeChange and focus of the editor isn't automatically performed when opening sub dialogs.
 Version 4.1.4 (2014-08-21)
-    Added new media_filter_html option to media plugin that blocks any conditional comments, scripts etc within a video element.
+    Added new media_filter_html option to media plugin that blocks any conditional comment, scripts etc within a video element.
     Added new content_security_policy option allows you to set custom policy for iframe contents. Patch contributed by Francois Chagnon.
     Fixed bug where activate/deactivate events wasn't firing properly when switching between editors.
     Fixed bug where placing the caret on iOS was difficult due to a WebKit bug with touch events.
@@ -1549,7 +1549,7 @@ Version 4.1.2 (2014-07-15)
     Fixed bug where the paste plugin would remove the element if the none of the paste_webkit_styles rules matched the current style.
     Fixed bug where contextmenu table items wouldn't work properly on IE since it would some times fire an incorrect selection change.
     Fixed bug where the padding/border values wasn't used in the size calculation for the body size when using autoresize. Patch contributed by Matt Whelan.
-    Fixed bug where conditional word comments wouldn't be properly removed when pasting plain text.
+    Fixed bug where conditional word comment wouldn't be properly removed when pasting plain text.
     Fixed bug where resizing would sometime fail on IE 11 when the mouseup occurred inside the resizable element.
     Fixed so the iframe gets initialized without any inline event handlers for better CSP support. Patch contributed by Matt Whelan.
     Fixed so the tinymce.dom.Sizzle is the latest version of sizzle this resolves the document context bug.
