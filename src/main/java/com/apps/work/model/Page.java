@@ -16,6 +16,9 @@ public class Page {
     @Column(length = 255)
     private String pageTitle;
 
+    @Column(length = 255)
+    private String seoUri;
+
     @Column(columnDefinition="TEXT")
     private String pageBody;
 
@@ -39,25 +42,13 @@ public class Page {
     @Column(length = 100)
     private String changedBy;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "page", orphanRemoval = true)
-    @Cascade({org.hibernate.annotations.CascadeType.ALL })
-    private Set<Fruit> fruits;
-
-    public Set<Fruit> getFruits() {
-        return fruits;
-    }
-
-    public void setFruits(Set<Fruit> fruits) {
-        this.fruits = fruits;
-    }
-
     public Page() {
-        super();
     }
 
-    public Page(Integer id, String pageTitle, String pageBody, String author, Boolean showOnMainPage, Date createdOn, String createdBy, Date changedOn, String changedBy) {
+    public Page(Integer id, String pageTitle, String seoUri, String pageBody, String author, Boolean showOnMainPage, Date createdOn, String createdBy, Date changedOn, String changedBy) {
         this.id = id;
         this.pageTitle = pageTitle;
+        this.seoUri = seoUri;
         this.pageBody = pageBody;
         this.author = author;
         this.showOnMainPage = showOnMainPage;
@@ -81,6 +72,14 @@ public class Page {
 
     public void setPageTitle(String pageTitle) {
         this.pageTitle = pageTitle;
+    }
+
+    public String getSeoUri() {
+        return seoUri;
+    }
+
+    public void setSeoUri(String seoUri) {
+        this.seoUri = seoUri;
     }
 
     public String getPageBody() {
@@ -148,6 +147,7 @@ public class Page {
 
         if (id != null ? !id.equals(page.id) : page.id != null) return false;
         if (pageTitle != null ? !pageTitle.equals(page.pageTitle) : page.pageTitle != null) return false;
+        if (seoUri != null ? !seoUri.equals(page.seoUri) : page.seoUri != null) return false;
         if (pageBody != null ? !pageBody.equals(page.pageBody) : page.pageBody != null) return false;
         if (author != null ? !author.equals(page.author) : page.author != null) return false;
         if (showOnMainPage != null ? !showOnMainPage.equals(page.showOnMainPage) : page.showOnMainPage != null)
@@ -162,6 +162,7 @@ public class Page {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (pageTitle != null ? pageTitle.hashCode() : 0);
+        result = 31 * result + (seoUri != null ? seoUri.hashCode() : 0);
         result = 31 * result + (pageBody != null ? pageBody.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
         result = 31 * result + (showOnMainPage != null ? showOnMainPage.hashCode() : 0);
@@ -177,6 +178,7 @@ public class Page {
         return "Page{" +
                 "id=" + id +
                 ", pageTitle='" + pageTitle + '\'' +
+                ", seoUri='" + seoUri + '\'' +
                 ", pageBody='" + pageBody + '\'' +
                 ", author='" + author + '\'' +
                 ", showOnMainPage=" + showOnMainPage +

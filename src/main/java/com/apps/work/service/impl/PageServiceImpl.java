@@ -23,4 +23,9 @@ public class PageServiceImpl implements PageService {
     public Optional<Page> getPage(Integer id) {
         return pageRepository.findById(id);
     }
+
+    @Override
+    public Page findBySeoUri(String seoUri) {
+        return pageRepository.findBySeoUri(seoUri);
+    }
 }
