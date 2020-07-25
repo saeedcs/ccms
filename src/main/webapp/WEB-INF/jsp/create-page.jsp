@@ -199,7 +199,7 @@
             let params = $.extend({}, doAjax_params_default);
             params['url'] = appRoutes.PAGE_LIST + appRoutes.PAGE_CREATE;
             params['data'] = JSON. stringify(data);
-            params['beforeSendCallbackFunction'] = page.beforeCreatingPage;
+            params['beforeSendCallbackFunction'] = page.beforeAjax;
             params['successCallbackFunction'] = page.doneCreatingPage;
             params['requestType'] = appObjects.REQUEST_TYPE.post;
             params['contentType'] = 'application/json';
@@ -211,7 +211,7 @@
             console.log(response);
             window.location.href = appRoutes.PAGE_LIST + '/';
         },
-        beforeCreatingPage: function() {
+        beforeAjax: function() {
             let header = $("meta[name='_csrf_header']").attr("content");
             let token = $("meta[name='_csrf']").attr("content");
             $(document).ajaxSend(function (e, xhr, options) {
@@ -248,7 +248,7 @@
             params['url'] = appRoutes.PAGE_LIST + appRoutes.SEO_URI_CHECK;
             params['data'] = data;
             params['successCallbackFunction'] = page.isSeoUriDuplicate;
-            params['beforeSendCallbackFunction'] = page.beforeCreatingPage;
+            params['beforeSendCallbackFunction'] = page.beforeAjax;
             params['requestType'] = appObjects.REQUEST_TYPE.post;
             //params['contentType'] = 'application/json';
             doAjax(params);

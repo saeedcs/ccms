@@ -18,7 +18,6 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Bean
     public ResourceBundleMessageSource messageSource() {
-
         var source = new ResourceBundleMessageSource();
         source.setBasenames("message");
         source.setUseCodeAsDefaultMessage(true);
