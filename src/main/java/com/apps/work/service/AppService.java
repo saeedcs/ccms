@@ -1,9 +1,7 @@
 package com.apps.work.service;
 
-import com.apps.work.model.Fruit;
-import com.apps.work.model.Page;
-import com.apps.work.model.Role;
-import com.apps.work.model.User;
+import com.apps.work.model.*;
+import com.apps.work.repository.ApplicationRepository;
 import com.apps.work.repository.FruitRepository;
 import com.apps.work.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +10,18 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Component
-public class TestService {
+public class AppService {
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private ApplicationRepository applicationRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private FruitRepository fruitRepository;
+    private Map<String, String> applicationMap;
 
     @PostConstruct
     public void doDbInserts() {
@@ -52,5 +49,23 @@ public class TestService {
         page.setId(1);
         fruit.setPage(page);
         fruitRepository.saveAndFlush(fruit);*/
+        applicationMap = new HashMap<>();
+        List<Application> applicationList = applicationRepository.findAll();
+        for(Application application : applicationList) {
+            applicationMap.put(application.getKeyPair(), application.getValuePair());
+        }
+
+    }
+
+    public Map<String, String> getApplicationMap() {
+        return applicationMap;
+    }
+
+    public void setApplicationMap(Map<String, String> applicationMap) {
+        this.applicationMap = applicationMap;
+    }
+
+    public void addApplicationValue(String key, String value) {
+        this.applicationMap.put(key, value);
     }
 }

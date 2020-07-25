@@ -11,8 +11,14 @@
         <div class="col-md-10">
             <div class="google-add-horizontal">
                 <div class="add">
-                    <img src="https://www.shakeout.org/2008/downloads/ShakeOut_BannerAds_GetReady_728x90_v3.gif" alt="" />
+                    <jsp:include page="common/horizontal-ad.jsp" />
                 </div>
+            </div>
+            <div class="form-action">
+                <div class="item">
+                    <buton type="button" class="btn btn-primary" onclick="page.jumpToCreate();">Create</buton>
+                </div>
+
             </div>
             <c:forEach items="${pages}" var="page">
             <a href="/page/view?id=${page.id}" class="post-list">
@@ -32,12 +38,33 @@
             </c:forEach>
 
         </div>
+
         <div class="col-md-2 google-add-vertical">
             <div class="add">
-                <img src="https://www.google.com/adsense/static/en/images/wideskyscraper_img.jpg" alt="" />
+                <jsp:include page="common/vertical-ad.jsp" />
             </div>
+        </div>
+        <div class="form-action">
+            <div class="item">
+                <buton type="button" class="btn btn-primary" onclick="page.jumpToCreate();">Create</buton>
+            </div>
+
         </div>
     </div>
 </div>
 
 <jsp:include page="common/footer.jsp" />
+<script>
+
+    $( document ).ready(function() {
+        //page has been loaded. do something
+
+    });
+
+    var page = {
+        jumpToCreate: function () {
+            window.location.href = appRoutes.PAGE_LIST + appRoutes.PAGE_CREATE;
+
+        }
+    }
+</script>
