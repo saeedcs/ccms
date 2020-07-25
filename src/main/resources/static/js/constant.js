@@ -32,11 +32,12 @@ const appStrings = {
 
 const appRoutes = {
     FILE_UPLOAD: '/upload/file-upload',
-    RESET_PASSWORD: '/auth/reset',
-    FORGET_PASSWORD: '/auth/forget',
-    LOGIN: '/auth/login',
-    USER_EXISTS: '/auth/user-exists',
-    REGISTER: '/auth/register',
+    RESET_PASSWORD: '/reset',
+    FORGET_PASSWORD: '/forget',
+    LOGIN: '/login',
+    AUTH: '/auth',
+    USER_EXISTS: '/user-exists',
+    REGISTER: '/register',
     PAGE_CREATE: '/create',
     PAGE_LIST: '/page',
     DELETE: '/delete',

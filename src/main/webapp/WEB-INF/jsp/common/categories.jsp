@@ -1,3 +1,5 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authorize access="hasAnyRole('ADMIN', 'USER')">
 <!-- left bar start -->
 <div class="left-bar">
     <div class="inner" data-aos="fade-right">
@@ -34,3 +36,4 @@
     </div>
 </div>
 <!-- Left bar end -->
+</sec:authorize>
