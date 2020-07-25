@@ -6,6 +6,7 @@ public interface AppConstants {
     String LOGIN_KEY = "login";
     String USER_EXISTS_KEY = "exists";
     String MESSAGE_KEY = "message";
+    String RESET_KEY = "reset";
     String REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
     String ROLE_DEFAULT = "ROLE_MEMBER";
 }

@@ -1,5 +1,6 @@
 package com.apps.work.controller;
 
+import com.apps.work.model.ForgetPassword;
 import com.apps.work.model.Page;
 import com.apps.work.model.Role;
 import com.apps.work.model.User;
@@ -163,10 +164,15 @@ public class AuthController {
                 String title = messageSource.getMessage("ccms.title", null,
                         Locale.getDefault());
                 String generatedString = RandomStringUtils.randomAlphanumeric(10);
+                ForgetPassword forgetPassword = new ForgetPassword();
+                forgetPassword.setUsername(email);
+                forgetPassword.setCode(generatedString);
+                forgetPassword.setUsed(false);
+                forgetPassword.setCreatedOn(new Date(Calendar.getInstance().getTimeInMillis()));
+                authService.saveForgetCode(forgetPassword);
                 String link = "http://localhost:8080/auth/reset?code=" + generatedString; //Fix hardcoded string
                 resultMap.put(AppConstants.MESSAGE_KEY, messageSource.getMessage("forget.message",
-                        new Object[]{title, link},
-                        Locale.getDefault()));
+                        new Object[]{title, link}, Locale.getDefault()));
                 return new ResponseEntity<>(resultMap, HttpStatus.OK);
 
             }
@@ -176,6 +182,60 @@ public class AuthController {
         }
 
         resultMap.put(AppConstants.MESSAGE_KEY, "");
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
+
+    //@Secured("USER")
+    @RequestMapping(value = "/reset", method = RequestMethod.GET)
+    public String reset(ModelMap model, @RequestParam String code) {
+        String template = "auth/reset";
+        if(code != null) {
+            try {
+                ForgetPassword forgetPassword = authService.findByCode(code);
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.HOUR_OF_DAY, -2);
+                if(forgetPassword != null && forgetPassword.getCreatedOn().getTime() > calendar.getTimeInMillis()) {
+                    model.addAttribute("username", forgetPassword.getUsername());
+                    return "auth/reset";
+                }
+            } catch (Exception e) {
+                logger.error(e);
+            }
+        }
+        return "auth/forget";
+    }
+
+    //@Secured("USER")
+    @RequestMapping(value = "/reset", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> resetPost(@RequestParam String code, @RequestParam String password,
+                                                         @RequestParam String confirmPassword) {
+        Map<String, String> resultMap = new HashMap<>();
+        try {
+            Optional<ForgetPassword> pageOptional = Optional.ofNullable(authService.findByCode(code));
+            if (pageOptional.isPresent()) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.HOUR_OF_DAY, -2);
+                ForgetPassword forgetPassword = pageOptional.get();
+                if(forgetPassword.getCreatedOn().getTime() > calendar.getTimeInMillis() && CcmsUtil.isValidPasswords(password, confirmPassword)) {
+                    User user = authService.getUserByUsername(forgetPassword.getUsername());
+                    if(user != null) {
+                        user.setPassword(password);
+                        authService.saveUser(user);
+                        forgetPassword.setUsed(true);
+                        authService.saveForgetCode(forgetPassword);
+                        resultMap.put(AppConstants.RESET_KEY, "login");
+                        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            logger.error(e);
+            return new ResponseEntity<>(resultMap, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        resultMap.put(AppConstants.RESET_KEY, "");
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
