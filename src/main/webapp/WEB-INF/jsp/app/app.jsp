@@ -15,27 +15,31 @@
                 </div>
             </div>
             <c:forEach items="${}" var="page">
-            <a href="/page/view?id=${page.id}" class="post-list">
-                <div class="description">
-                    <h3>${page.pageTitle}</h3>
+                <a href="/page/view?id=${page.id}" class="post-list">
+                    <div class="description">
+                        <h3>${page.pageTitle}</h3>
 
-                    <div class="author-info">
-                        <i class="fa fa-user-circle-o"></i>
-                        <div class="name">${page.author}</div>
-                        <div class="post-info">
-                            <span>4 jul 2020</span>
-                            <span>1 min read</span>
+                        <div class="author-info">
+                            <i class="fa fa-user-circle-o"></i>
+                            <div class="name">${page.author}</div>
+                            <div class="post-info">
+                                <span>4 jul 2020</span>
+                                <span>1 min read</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
+                </a>
             </c:forEach>
 
             <c:forEach var="points" items="${appMap}" varStatus="index">
-                <div class="col-xs-3 ">
-                    <label for="pointMap[${index.index}]-value">${points.key}</label>
-                    <input type="text" id="pointMap[${index.index}]-value" name="pointsValueMap[${points.key}]" value="${points.value}"
-                           data-key="${points.key}">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="pointMap[${index.index}]-value">${points.key}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" id="pointMap[${index.index}]-value" name="pointsValueMap[${points.key}]" value="${points.value}"
+                               data-key="${points.key}" style="width:100%"/>
+                    </div>
                 </div>
             </c:forEach>
             <buton type="button" class="btn btn-primary" onclick="app.submitCreate();">Submit</buton>
@@ -78,13 +82,13 @@
             params['url'] = appRoutes.APP + '/';
             params['data'] = JSON. stringify(inputStore);
             params['beforeSendCallbackFunction'] = app.beforeAjax;
-            params['successCallbackFunction'] = app.doneCreatingPage;
+            params['successCallbackFunction'] = app.doneSubmitting;
             params['requestType'] = appObjects.REQUEST_TYPE.post;
             params['contentType'] = 'application/json';
             doAjax(params);
 
         },
-        doneCreatingPage: function (response) {
+        doneSubmitting: function (response) {
             console.log("Page created " );
             console.log(response);
 

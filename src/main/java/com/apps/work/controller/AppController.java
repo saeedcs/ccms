@@ -1,6 +1,7 @@
 package com.apps.work.controller;
 
 import com.apps.work.model.Page;
+import com.apps.work.service.AppService;
 import com.apps.work.service.PageService;
 import com.apps.work.util.KeyValue;
 import net.minidev.json.JSONObject;
@@ -13,10 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/app")
@@ -27,14 +25,15 @@ public class AppController {
     @Autowired
     private PageService pageService;
 
+    @Autowired
+    private AppService appService;
+
     //@Secured("USER")
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String renderAppList(ModelMap model) {
         try {
-            Map<String, String> appMap = new HashMap<>();
-            appMap.put("firstkey", "value1");
-            appMap.put("secondkey", "value2");
-            model.addAttribute("appMap", appMap);
+            Map<String, String> appMap = appService.getApplicationMap();
+            model.addAttribute("appMap", new  TreeMap<String,String>(appMap));
         } catch(Exception e) {
             logger.error(e);
         }
@@ -48,6 +47,7 @@ public class AppController {
         try {
             for(KeyValue keyValue : keyValues) {
                 System.out.println(keyValue);
+                appService.addApplicationValue(keyValue.getKey(), keyValue.getValue());
             }
         } catch(Exception e) {
             logger.error(e);
