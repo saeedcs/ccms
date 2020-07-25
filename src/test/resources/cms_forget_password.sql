@@ -1,0 +1,3 @@
+INSERT INTO cms.forget_password (id, changed_by, changed_on, code, created_by, created_on, used, username) VALUES (26, null, null, 'ZVUIprOMZZ', null, '2020-07-25 06:11:47.711000000', false, 'admin@q.com');
+INSERT INTO cms.forget_password (id, changed_by, changed_on, code, created_by, created_on, used, username) VALUES (27, null, null, '1ChNbzNAe7', null, '2020-07-25 06:49:56.125000000', true, 'admin@q.com');
+INSERT INTO cms.forget_password (id, changed_by, changed_on, code, created_by, created_on, used, username) VALUES (28, null, null, 'TGtxnjNwP0', null, '2020-07-25 07:26:04.156000000', false, 'admin@q.com');

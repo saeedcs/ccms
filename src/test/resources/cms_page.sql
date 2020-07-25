@@ -1,0 +1,1 @@
+INSERT INTO cms.page (id, author, changed_by, changed_on, created_by, created_on, page_body, page_title, seo_uri, show_on_main_page) VALUES (1, 'Saeed Iqbal', null, null, null, null, 'This is page body', 'Title of Page', 'title-of-page', true);
