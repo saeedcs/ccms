@@ -11,10 +11,10 @@ public class Application {
     private Integer id;
 
     @Column(length = 100)
-    private String key;
+    private String keyPair;
 
     @Column(columnDefinition="TEXT")
-    private String value;
+    private String valuePair;
 
     @Column(name = "created_on", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
@@ -30,14 +30,13 @@ public class Application {
     @Column(length = 100)
     private String changedBy;
 
-
     public Application() {
     }
 
-    public Application(Integer id, String key, String value, Date createdOn, String createdBy, Date changedOn, String changedBy) {
+    public Application(Integer id, String keyPair, String valuePair, Date createdOn, String createdBy, Date changedOn, String changedBy) {
         this.id = id;
-        this.key = key;
-        this.value = value;
+        this.keyPair = keyPair;
+        this.valuePair = valuePair;
         this.createdOn = createdOn;
         this.createdBy = createdBy;
         this.changedOn = changedOn;
@@ -52,20 +51,20 @@ public class Application {
         this.id = id;
     }
 
-    public String getKey() {
-        return key;
+    public String getKeyPair() {
+        return keyPair;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setKeyPair(String keyPair) {
+        this.keyPair = keyPair;
     }
 
-    public String getValue() {
-        return value;
+    public String getValuePair() {
+        return valuePair;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setValuePair(String valuePair) {
+        this.valuePair = valuePair;
     }
 
     public Date getCreatedOn() {
@@ -108,8 +107,8 @@ public class Application {
         Application that = (Application) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (key != null ? !key.equals(that.key) : that.key != null) return false;
-        if (value != null ? !value.equals(that.value) : that.value != null) return false;
+        if (keyPair != null ? !keyPair.equals(that.keyPair) : that.keyPair != null) return false;
+        if (valuePair != null ? !valuePair.equals(that.valuePair) : that.valuePair != null) return false;
         if (createdOn != null ? !createdOn.equals(that.createdOn) : that.createdOn != null) return false;
         if (createdBy != null ? !createdBy.equals(that.createdBy) : that.createdBy != null) return false;
         if (changedOn != null ? !changedOn.equals(that.changedOn) : that.changedOn != null) return false;
@@ -119,8 +118,8 @@ public class Application {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (key != null ? key.hashCode() : 0);
-        result = 31 * result + (value != null ? value.hashCode() : 0);
+        result = 31 * result + (keyPair != null ? keyPair.hashCode() : 0);
+        result = 31 * result + (valuePair != null ? valuePair.hashCode() : 0);
         result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);
         result = 31 * result + (createdBy != null ? createdBy.hashCode() : 0);
         result = 31 * result + (changedOn != null ? changedOn.hashCode() : 0);
@@ -132,8 +131,8 @@ public class Application {
     public String toString() {
         return "Application{" +
                 "id=" + id +
-                ", key='" + key + '\'' +
-                ", value='" + value + '\'' +
+                ", keyPair='" + keyPair + '\'' +
+                ", valuePair='" + valuePair + '\'' +
                 ", createdOn=" + createdOn +
                 ", createdBy='" + createdBy + '\'' +
                 ", changedOn=" + changedOn +

@@ -220,7 +220,7 @@ public class AuthController {
                 if(forgetPassword.getCreatedOn().getTime() > calendar.getTimeInMillis() && CcmsUtil.isValidPasswords(password, confirmPassword)) {
                     User user = authService.getUserByUsername(forgetPassword.getUsername());
                     if(user != null) {
-                        user.setPassword(password);
+                        user.setPassword(passwordEncoder.encode(password));
                         authService.saveUser(user);
                         forgetPassword.setUsed(true);
                         authService.saveForgetCode(forgetPassword);
