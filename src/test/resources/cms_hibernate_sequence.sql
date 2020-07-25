@@ -1,0 +1,1 @@
+INSERT INTO cms.hibernate_sequence (next_val) VALUES (29);
