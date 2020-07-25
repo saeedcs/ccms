@@ -1,7 +1,9 @@
 package com.apps.work.service.impl;
 
+import com.apps.work.model.ForgetPassword;
 import com.apps.work.model.Role;
 import com.apps.work.model.User;
+import com.apps.work.repository.ForgetRepository;
 import com.apps.work.repository.RoleRepository;
 import com.apps.work.repository.UserRepository;
 import com.apps.work.service.AuthService;
@@ -15,6 +17,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private ForgetRepository forgetRepository;
 
     @Override
     public User checkUserExists(String username) {
@@ -35,6 +40,21 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public User getUser(String username, String password) {
         return userRepository.findUserByUsernameAndPassword(username, password);
+    }
+
+    @Override
+    public ForgetPassword saveForgetCode(ForgetPassword forgetPassword) {
+        return forgetRepository.save(forgetPassword);
+    }
+
+    @Override
+    public ForgetPassword findByCode(String code) {
+        return forgetRepository.findByCode(code);
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userRepository.getUserByUsername(username);
     }
 
 }
