@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "comments")
-public class Comments {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -31,10 +31,10 @@ public class Comments {
     @JoinColumn(name = "article_id")
     private Article article;
 
-    public Comments() {
+    public Comment() {
     }
 
-    public Comments(Integer id, String commentText, Date createdOn, String createdBy, Date changedOn, String changedBy, Article article) {
+    public Comment(Integer id, String commentText, Date createdOn, String createdBy, Date changedOn, String changedBy, Article article) {
         this.id = id;
         this.commentText = commentText;
         this.createdOn = createdOn;
@@ -105,16 +105,16 @@ public class Comments {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Comments comments = (Comments) o;
+        Comment comment = (Comment) o;
 
-        if (id != null ? !id.equals(comments.id) : comments.id != null) return false;
-        if (commentText != null ? !commentText.equals(comments.commentText) : comments.commentText != null)
+        if (id != null ? !id.equals(comment.id) : comment.id != null) return false;
+        if (commentText != null ? !commentText.equals(comment.commentText) : comment.commentText != null)
             return false;
-        if (createdOn != null ? !createdOn.equals(comments.createdOn) : comments.createdOn != null) return false;
-        if (createdBy != null ? !createdBy.equals(comments.createdBy) : comments.createdBy != null) return false;
-        if (changedOn != null ? !changedOn.equals(comments.changedOn) : comments.changedOn != null) return false;
-        if (changedBy != null ? !changedBy.equals(comments.changedBy) : comments.changedBy != null) return false;
-        return article != null ? article.equals(comments.article) : comments.article == null;
+        if (createdOn != null ? !createdOn.equals(comment.createdOn) : comment.createdOn != null) return false;
+        if (createdBy != null ? !createdBy.equals(comment.createdBy) : comment.createdBy != null) return false;
+        if (changedOn != null ? !changedOn.equals(comment.changedOn) : comment.changedOn != null) return false;
+        if (changedBy != null ? !changedBy.equals(comment.changedBy) : comment.changedBy != null) return false;
+        return article != null ? article.equals(comment.article) : comment.article == null;
     }
 
     @Override
@@ -138,7 +138,7 @@ public class Comments {
                 ", createdBy='" + createdBy + '\'' +
                 ", changedOn=" + changedOn +
                 ", changedBy='" + changedBy + '\'' +
-                ", article=" + article +
+                ", article.jsp=" + article +
                 '}';
     }
 }
