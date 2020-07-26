@@ -218,12 +218,12 @@
             let body = document.getElementById('pageBody').value;
             let seoUri = document.getElementById('seoUri').value;
             let id = document.getElementById('pid').value;
+            let mainPageImg = page.extractFirstImgSrc(body);
 
             let data = {};
             data['pageTitle'] = title;
             data['pageBody'] = body;
             data['seoUri'] = seoUri;
-
 
             if(id != undefined && id != null) {
                 data['id'] = id;
@@ -240,7 +240,7 @@
             params['successCallbackFunction'] = page.doneCreatingPage;
             params['requestType'] = appObjects.REQUEST_TYPE.post;
             params['contentType'] = 'application/json';
-            doAjax(params);
+            //doAjax(params);
 
         },
         doneCreatingPage: function (response) {
@@ -303,8 +303,8 @@
             var results = re.exec(str);
 
             var source = results[1];
-            alert(source);
 
+            return source;
         }
     }
 </script>
