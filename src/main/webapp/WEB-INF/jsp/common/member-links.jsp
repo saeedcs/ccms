@@ -5,7 +5,7 @@
     <div class="inner" data-aos="fade-right">
         <div class="top">
             <a href="#" class="logo desktop" data-aos="fade-down">
-                Ktor cms <span class="slogan">Your CMS, your way</span>
+                CCMS <span class="slogan">Your CMS, your way</span>
             </a>
 
             <a href="#" class="logo mobile text-left" data-aos="fade-down">K</a>

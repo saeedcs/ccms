@@ -1,6 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<spring:message code="pages.title" text="default" var="title"/>
+<spring:message code="login.title" text="default" var="title"/>
 <jsp:include page="../common/header.jsp">
     <jsp:param name="titleAppend" value="#{title}"  />
 </jsp:include>
@@ -12,10 +12,10 @@
         <div class="col-md-10">
             <div class="google-add-horizontal">
                 <div class="add">
-                    <img src="https://www.shakeout.org/2008/downloads/ShakeOut_BannerAds_GetReady_728x90_v3.gif" alt="" />
+                    <jsp:include page="../common/horizontal-ad.jsp" />
                 </div>
             </div>
-            <h2 id="login">Login</h2>
+            <h2 id="login"><c:out value="${title}" /></h2>
             <span id="response"></span>
             <form id="login-form" name="loginform" action="" method="post">
                 <div class="form-group">
@@ -33,7 +33,7 @@
         </div>
         <div class="col-md-2 google-add-vertical">
             <div class="add">
-                <img src="https://www.google.com/adsense/static/en/images/wideskyscraper_img.jpg" alt="" />
+                <jsp:include page="../common/vertical-ad.jsp" />
             </div>
         </div>
     </div>
