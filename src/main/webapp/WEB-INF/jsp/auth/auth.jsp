@@ -12,30 +12,16 @@
         <div class="col-md-10">
             <div class="google-add-horizontal">
                 <div class="add">
-                    <img src="https://www.shakeout.org/2008/downloads/ShakeOut_BannerAds_GetReady_728x90_v3.gif" alt="" />
+                    <jsp:include page="../common/horizontal-ad.jsp" />
                 </div>
             </div>
-            <c:forEach items="${pages}" var="page">
-            <a href="/page/view?id=${page.id}" class="post-list">
-                <div class="description">
-                    <h3>${page.pageTitle}</h3>
 
-                    <div class="author-info">
-                        <i class="fa fa-user-circle-o"></i>
-                        <div class="name">${page.author}</div>
-                        <div class="post-info">
-                            <span>4 jul 2020</span>
-                            <span>1 min read</span>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            </c:forEach>
+
 
         </div>
         <div class="col-md-2 google-add-vertical">
             <div class="add">
-                <img src="https://www.google.com/adsense/static/en/images/wideskyscraper_img.jpg" alt="" />
+                <jsp:include page="../common/vertical-ad.jsp" />
             </div>
         </div>
     </div>
