@@ -41,7 +41,7 @@
         </div>
 
         <a href="#" class="logo white">
-            Ktor cms <span class="slogan">Your CMS, your way</span>
+            CCMS <span class="slogan">Your CMS, your way</span>
         </a>
     </header>
     <!-- header end -->
