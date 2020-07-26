@@ -7,9 +7,11 @@ public interface AppConstants {
     String USER_EXISTS_KEY = "exists";
     String MESSAGE_KEY = "message";
     String RESET_KEY = "reset";
+    String LOCATION_KEY = "location";
     String REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
     String ROLE_DEFAULT = "ROLE_MEMBER";
     String AUTH_URI = "/auth";
     String RESET_URI = "/reset";
     String CODE = "code";
+    String UPLOAD_FOLDER = "upload/";
 }

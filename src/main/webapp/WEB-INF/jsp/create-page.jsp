@@ -164,8 +164,45 @@
         contextmenu: "link image imagetools table",
         file_picker_types: 'image',
         automatic_uploads: true,
-        images_upload_url: '/upload/file-upload',
-        images_upload_base_path: '/upload/'
+        images_upload_url: appRoutes.UPLOAD + appRoutes.FILE_UPLOAD,
+        images_upload_base_path: '/upload/',
+        images_upload_handler: function (blobInfo, success, failure) {
+            var xhr, formData;
+
+            xhr = new XMLHttpRequest();
+            xhr.withCredentials = false;
+            xhr.open('POST', appRoutes.UPLOAD + appRoutes.FILE_UPLOAD);
+
+            xhr.onload = function() {
+                var json;
+
+                if (xhr.status != 200) {
+                    failure('HTTP Error: ' + xhr.status);
+                    return;
+                }
+
+                json = JSON.parse(xhr.responseText);
+
+                if (!json || typeof json.location != 'string') {
+                    failure('Invalid JSON: ' + xhr.responseText);
+                    return;
+                }
+
+                success(json.location);
+            };
+
+            formData = new FormData();
+            formData.append('file', blobInfo.blob(), blobInfo.filename());
+            let header = $("meta[name='_csrf_header']").attr("content");
+            let token = $("meta[name='_csrf']").attr("content");
+
+            xhr.setRequestHeader(header, token);
+
+            // append CSRF token in the form data
+            formData.append(header, token);
+
+            xhr.send(formData);
+        }
     });
 </script>
 

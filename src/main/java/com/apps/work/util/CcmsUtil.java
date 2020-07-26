@@ -1,5 +1,6 @@
 package com.apps.work.util;
 
+import java.util.Calendar;
 import java.util.regex.Pattern;
 
 public class CcmsUtil {
@@ -18,5 +19,10 @@ public class CcmsUtil {
             }
         }
         return false;
+    }
+
+    public static String formatUploadedFilename(String originalFilename) {
+        String[] filenameArr = originalFilename.split("\\.");
+        return filenameArr[0] + Calendar.getInstance().getTimeInMillis() + "." + filenameArr[1];
     }
 }

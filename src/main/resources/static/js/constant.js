@@ -31,7 +31,8 @@ const appStrings = {
 }
 
 const appRoutes = {
-    FILE_UPLOAD: '/upload/file-upload',
+    UPLOAD: '/upload',
+    FILE_UPLOAD: '/file-upload',
     RESET_PASSWORD: '/reset',
     FORGET_PASSWORD: '/forget',
     LOGIN: '/login',
