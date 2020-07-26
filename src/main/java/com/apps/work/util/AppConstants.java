@@ -9,4 +9,7 @@ public interface AppConstants {
     String RESET_KEY = "reset";
     String REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
     String ROLE_DEFAULT = "ROLE_MEMBER";
+    String AUTH_URI = "/auth";
+    String RESET_URI = "/reset";
+    String CODE = "code";
 }

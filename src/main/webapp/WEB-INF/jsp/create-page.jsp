@@ -260,6 +260,14 @@
             } else {
                 validateForms.validField('seoUri')
             }
+        },
+        extractFirstImgSrc(str) {
+            var re = /<img[^>]+src="([^">]+)/g
+            var results = re.exec(str);
+
+            var source = results[1];
+            alert(source);
+
         }
     }
 </script>

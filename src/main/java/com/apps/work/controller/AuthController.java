@@ -170,9 +170,10 @@ public class AuthController {
                 forgetPassword.setUsed(false);
                 forgetPassword.setCreatedOn(new Date(Calendar.getInstance().getTimeInMillis()));
                 authService.saveForgetCode(forgetPassword);
-                String link = "http://localhost:8080/auth/reset?code=" + generatedString; //Fix hardcoded string
-                resultMap.put(AppConstants.MESSAGE_KEY, messageSource.getMessage("forget.message",
-                        new Object[]{title, link}, Locale.getDefault()));
+                String link = messageSource.getMessage("base.uri", null, Locale.getDefault()) + AppConstants.AUTH_URI
+                        + AppConstants.RESET_URI + "?" + AppConstants.CODE + "=" + generatedString;
+                resultMap.put(AppConstants.MESSAGE_KEY, messageSource.getMessage("forget.message", new Object[]{title, link},
+                        Locale.getDefault()));
                 return new ResponseEntity<>(resultMap, HttpStatus.OK);
 
             }
