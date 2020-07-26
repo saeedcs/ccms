@@ -1,4 +1,5 @@
-<body>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<body <sec:authorize access="!hasAnyRole('ADMIN', 'USER')">class="simple-page" </sec:authorize>>
 <div class="overlay d-none"></div>
 <div class="page-wrapper">
     <!-- header start -->

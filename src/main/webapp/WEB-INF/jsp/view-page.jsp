@@ -5,6 +5,7 @@
     <jsp:param name="titleAppend" value="#{title}"  />
 </jsp:include>
 <jsp:include page="common/headernav.jsp" />
+<jsp:include page="common/member-links.jsp" />
 <jsp:include page="common/categories.jsp" />
 <div class="content">
     <div class="row">
