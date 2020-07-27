@@ -25,7 +25,7 @@
                 </div>
             </div>
             <c:forEach items="${pages}" var="page">
-            <a href="/page/view?seoUri=${page.seoUri}" class="post-list">
+            <a href="/page/view?uri=${page.seoUri}" class="post-list">
                 <div class="description">
                     <h3>${page.pageTitle}</h3>
 
