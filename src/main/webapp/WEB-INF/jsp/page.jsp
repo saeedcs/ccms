@@ -4,7 +4,11 @@
 <jsp:include page="common/header.jsp">
     <jsp:param name="titleAppend" value="#{title}"  />
 </jsp:include>
-<jsp:include page="common/headernav.jsp" />
+<c:set var="pagesMain" value="${pagesMain}" scope="request"/>
+<%--<jsp:include page="common/headernav.jsp" >
+    <jsp:param name="pagesMain" value="${pagesMain}"  />
+</jsp:include>--%>
+<c:import url="common/headernav.jsp"/>
 <jsp:include page="common/member-links.jsp" />
 <jsp:include page="common/categories.jsp" />
 <div class="content">
@@ -22,7 +26,7 @@
 
             </div>
             <c:forEach items="${pages}" var="page">
-            <a href="/page/view?id=${page.id}" class="post-list">
+            <a href="/page/view?seoUri=${page.seoUri}" class="post-list">
                 <div class="description">
                     <h3>${page.pageTitle}</h3>
 

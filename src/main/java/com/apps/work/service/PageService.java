@@ -8,5 +8,7 @@ public interface PageService {
 
     List<Page> getPageList();
     Optional<Page> getPage(Integer id);
-    Page findBySeoUri(String seoUri, String id);
+    Page findBySeoUriAndIdNot(String seoUri, String id);
+
+    Page findBySeoUri(String seoUri);
 }

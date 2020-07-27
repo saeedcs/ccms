@@ -1,6 +1,7 @@
 package com.apps.work.controller;
 
 import com.apps.work.model.Page;
+import com.apps.work.service.AppService;
 import com.apps.work.service.PageService;
 import net.minidev.json.JSONObject;
 import org.apache.commons.logging.Log;
@@ -25,10 +26,14 @@ public class PageController {
     @Autowired
     private PageService pageService;
 
+    @Autowired
+    private AppService appService;
+
     //@Secured("USER")
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String renderPageList(ModelMap model) {
         try {
+            model.addAttribute("pagesMain", appService.getPages());
             model.addAttribute("pages", pageService.getPageList());
         } catch(Exception e) {
             logger.error(e);
@@ -38,9 +43,9 @@ public class PageController {
 
     //@Secured("USER")
     @RequestMapping(value = "/view", method = RequestMethod.GET)
-    public String viewPage(ModelMap model, @RequestParam String id) {
+    public String viewPage(ModelMap model, @RequestParam String seoUri) {
         try {
-            Optional<Page> pageOptional = pageService.getPage(Integer.parseInt(id));
+            Optional<Page> pageOptional = Optional.ofNullable(pageService.findBySeoUri(seoUri));
             if (pageOptional.isPresent()) {
                 model.addAttribute("page", pageOptional.get());
             }
@@ -92,7 +97,7 @@ public class PageController {
                 if(id == null || id.equals("")) {
                     id = new String("0");
                 }
-                Optional<Page> pageOptional = Optional.ofNullable(pageService.findBySeoUri(seoUri, id));
+                Optional<Page> pageOptional = Optional.ofNullable(pageService.findBySeoUriAndIdNot(seoUri, id));
                 if (pageOptional.isPresent()) {
                     resultMap.put("exists", true);
                     return resultMap;
