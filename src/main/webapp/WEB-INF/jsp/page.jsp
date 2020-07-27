@@ -23,7 +23,6 @@
                 <div class="item">
                     <buton type="button" class="btn btn-primary" onclick="page.jumpToCreate();">Create</buton>
                 </div>
-
             </div>
             <c:forEach items="${pages}" var="page">
             <a href="/page/view?seoUri=${page.seoUri}" class="post-list">
@@ -49,12 +48,7 @@
                 <jsp:include page="common/vertical-ad.jsp" />
             </div>
         </div>
-        <div class="form-action">
-            <div class="item">
-                <buton type="button" class="btn btn-primary" onclick="page.jumpToCreate();">Create</buton>
-            </div>
 
-        </div>
     </div>
 </div>
 
