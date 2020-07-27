@@ -1,6 +1,8 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <body <sec:authorize access="!hasAnyRole('ADMIN', 'USER')">class="simple-page" </sec:authorize>>
 <div class="overlay d-none"></div>
+
 <div class="page-wrapper">
     <!-- header start -->
     <header>
@@ -15,6 +17,9 @@
                     <li><a href="#">Customers</a></li>
                     <li><a href="#">Contact</a></li>
                     <li><a href="#">Get Help</a></li>
+                    <c:forEach items="${requestScope.pagesMain}" var="page">
+                    <li><a href="#">${page.pageTitle}</a></li>
+                    </c:forEach>
                 </ul>
             </div>
 

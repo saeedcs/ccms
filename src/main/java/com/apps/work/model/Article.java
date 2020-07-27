@@ -15,7 +15,7 @@ public class Article {
     @Column(length = 255)
     private String articleTitle;
 
-    @Column(length = 255)
+    @Column(length = 255, unique = true)
     private String seoUri;
 
     @Column(columnDefinition="TEXT")

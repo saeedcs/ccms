@@ -16,7 +16,7 @@ public class Page {
     @Column(length = 255)
     private String pageTitle;
 
-    @Column(length = 255)
+    @Column(length = 255, unique = true)
     private String seoUri;
 
     @Column(columnDefinition="TEXT")
