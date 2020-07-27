@@ -34,4 +34,15 @@ public class PageServiceImpl implements PageService {
         return pageRepository.findBySeoUri(seoUri);
     }
 
+    @Override
+    public void deletePage(String idStr) {
+        Integer id = Integer.parseInt(idStr);
+        pageRepository.delete(pageRepository.getOne(id));
+    }
+
+    @Override
+    public Page createPage(Page page) {
+        return pageRepository.save(page);
+    }
+
 }

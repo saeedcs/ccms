@@ -11,4 +11,8 @@ public interface PageService {
     Page findBySeoUriAndIdNot(String seoUri, String id);
 
     Page findBySeoUri(String seoUri);
+
+    void deletePage(String idStr);
+
+    Page createPage(Page page);
 }

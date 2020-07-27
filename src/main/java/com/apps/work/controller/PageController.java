@@ -79,9 +79,7 @@ public class PageController {
     public ResponseEntity<JSONObject> postCreatePage(ModelMap model, @RequestBody(required = false) Page page) {
         JSONObject result = new JSONObject();
         try {
-
-
-
+            pageService.createPage(page);
         } catch (Exception e) {
             logger.error(e);
         }
@@ -109,6 +107,21 @@ public class PageController {
             logger.error(e);
         }
         return resultMap;
+    }
+
+    //@Secured("USER")
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<JSONObject> postDeletePage(@RequestParam String id) {
+        JSONObject result = new JSONObject();
+        try {
+            pageService.deletePage(id);
+            result.put("deleted", true);
+            return ResponseEntity.status(HttpStatus.OK).body(result);
+        } catch (Exception e) {
+            logger.error(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
+        }
     }
 
 }

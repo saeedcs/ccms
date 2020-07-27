@@ -68,7 +68,7 @@
         <span class="close">&times;</span>
         <p>Are you sure you want to delete?
         </p>
-        <buton id="delete" type="button" class="btn btn-danger" onclick="page.editPage(${page.id})">Delete</buton>
+        <buton id="delete" type="button" class="btn btn-danger" onclick="page.deletePage(${page.id})">Delete</buton>
         <p></p><buton type="button" class="btn btn-light" onclick="closeModal()">No</buton>
 
     </div>
@@ -101,5 +101,33 @@
         if (event.target == modal) {
             modal.style.display = "none";
         }
+    }
+
+    var page = {
+        deletePage: function(id) {
+            let data = {};
+            data['id'] = id;
+
+            let params = $.extend({}, doAjax_params_default);
+            params['url'] = appRoutes.PAGE_LIST + appRoutes.PAGE_DELETE;
+            params['data'] = data;
+            params['beforeSendCallbackFunction'] = page.beforeAjax;
+            params['successCallbackFunction'] = page.doneDeletingPage;
+            params['requestType'] = appObjects.REQUEST_TYPE.post;
+            //params['contentType'] = 'application/json';
+            doAjax(params);
+        },
+        doneDeletingPage: function (response) {
+            console.log("Page deleted " );
+            console.log(response);
+            window.location.href = appRoutes.PAGE_LIST + '/';
+        },
+        beforeAjax: function() {
+            let header = $("meta[name='_csrf_header']").attr("content");
+            let token = $("meta[name='_csrf']").attr("content");
+            $(document).ajaxSend(function (e, xhr, options) {
+                xhr.setRequestHeader(header, token);
+            });
+        },
     }
 </script>
