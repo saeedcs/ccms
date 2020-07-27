@@ -245,7 +245,7 @@
             params['successCallbackFunction'] = page.doneCreatingPage;
             params['requestType'] = appObjects.REQUEST_TYPE.post;
             params['contentType'] = 'application/json';
-            //doAjax(params);
+            doAjax(params);
 
         },
         doneCreatingPage: function (response) {
@@ -306,7 +306,9 @@
         extractFirstImgSrc(str) {
             var re = /<img[^>]+src="([^">]+)/g
             var results = re.exec(str);
-
+            if(results == undefined || results == null) {
+                return '';
+            }
             var source = results[1];
 
             return source;

@@ -43,6 +43,8 @@ const appRoutes = {
     PAGE_LIST: '/page',
     APP: '/app',
     DELETE: '/delete',
-    SEO_URI_CHECK: '/check-seo-uri'
+    SEO_URI_CHECK: '/check-seo-uri',
+    PAGE_DELETE: '/delete',
+
 
 }
