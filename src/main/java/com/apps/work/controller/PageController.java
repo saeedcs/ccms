@@ -43,9 +43,9 @@ public class PageController {
 
     //@Secured("USER")
     @RequestMapping(value = "/view", method = RequestMethod.GET)
-    public String viewPage(ModelMap model, @RequestParam String seoUri) {
+    public String viewPage(ModelMap model, @RequestParam String uri) {
         try {
-            Optional<Page> pageOptional = Optional.ofNullable(pageService.findBySeoUri(seoUri));
+            Optional<Page> pageOptional = Optional.ofNullable(pageService.findBySeoUri(uri));
             if (pageOptional.isPresent()) {
                 model.addAttribute("page", pageOptional.get());
             }
