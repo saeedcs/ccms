@@ -49,6 +49,7 @@ public class PageController {
             if (pageOptional.isPresent()) {
                 model.addAttribute("page", pageOptional.get());
             }
+            model.addAttribute("pagesMain", appService.getPages());
         } catch (Exception e) {
             logger.error(e);
         }
@@ -65,6 +66,7 @@ public class PageController {
                     model.addAttribute("page", pageOptional.get());
                 }
             }
+            model.addAttribute("pagesMain", appService.getPages());
         } catch (Exception e) {
             logger.error(e);
         }

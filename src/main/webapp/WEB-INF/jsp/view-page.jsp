@@ -4,7 +4,11 @@
 <jsp:include page="common/header.jsp">
     <jsp:param name="titleAppend" value="#{title}"  />
 </jsp:include>
-<jsp:include page="common/headernav.jsp" />
+<c:set var="pagesMain" value="${pagesMain}" scope="request"/>
+<%--<jsp:include page="common/headernav.jsp" >
+    <jsp:param name="pagesMain" value="${pagesMain}"  />
+</jsp:include>--%>
+<c:import url="common/headernav.jsp"/>
 <jsp:include page="common/member-links.jsp" />
 <jsp:include page="common/categories.jsp" />
 <div class="content">
