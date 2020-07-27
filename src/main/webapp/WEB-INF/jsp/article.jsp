@@ -1,8 +1,3 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<spring:message code="pages.title" text="default" var="title"/>
-<jsp:include page="common/header.jsp">
-    <jsp:param name="titleAppend" value="#{title}"  />
 </jsp:include>
 <jsp:include page="common/headernav.jsp" />
 <jsp:include page="common/member-links.jsp" />

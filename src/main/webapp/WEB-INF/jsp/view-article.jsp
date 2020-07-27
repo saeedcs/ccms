@@ -36,10 +36,24 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-2 google-add-vertical">
-            <div class="add">
-                <img src="https://www.google.com/adsense/static/en/images/wideskyscraper_img.jpg" alt="" />
-            </div>
+    </div>
+    <div class="col-md-2 google-add-vertical">
+        <div class="add">
+            <img src="https://www.google.com/adsense/static/en/images/wideskyscraper_img.jpg" alt="" />
+        </div>
+    </div>
+    <div class="md-form">
+        <i class="fas fa-pencil-alt prefix"></i>
+        <label >Leave a Comment</label>
+        <textarea id="comment" name="comment" class="md-textarea form-control" rows="3" placeholder="Write your comment here..."></textarea>
+    </div>
+    <div class="form-action">
+        <div class="item">
+            <buton type="Add Comment" class="btn btn-primary" onclick="article.addComment()">Add Comment</buton>
+        </div>
+
+        <div class="item text-right">
+            <buton type="reset" class="btn btn-light">Cancel</buton>
         </div>
     </div>
 </div>
@@ -53,3 +67,47 @@
         }
     }
 </script>
+<script>
+    var article = {
+        addComment : function () {
+            let comment= document.getElementById('comment').value;
+            let data = {};
+            data['comment'] = comment;
+            data['articleId'] = ${article.id};
+            console.log(data);
+
+            let params = $.extend({}, doAjax_params_default);
+            params['url'] = appRoutes.ARTICLE_LIST + appRoutes.ADD_COMMENT;
+            params['data'] = data;
+            params['beforeSendCallbackFunction'] = article.beforeAjax;
+            params['successCallbackFunction'] = article.doneAddingComment;
+            params['requestType'] = appObjects.REQUEST_TYPE.post;
+            //params['contentType'] = 'application/json';
+            doAjax(params);
+        },
+        doneAddingComment: function (response) {
+            console.log("Comment added" );
+            console.log(response);
+        },
+        beforeAjax: function() {
+            let header = $("meta[name='_csrf_header']").attr("content");
+            let token = $("meta[name='_csrf']").attr("content");
+            $(document).ajaxSend(function (e, xhr, options) {
+                xhr.setRequestHeader(header, token);
+            });
+        },
+    }
+</script>
+<%--<script>--%>
+<%--    $(document).ready(function(){--%>
+<%--        $("abc").click(function(){--%>
+<%--            var comment = $.trim($("#comment").val());--%>
+<%--            if(comment != ""){--%>
+<%--                // Show alert dialog if value is not blank--%>
+<%--                alert(comment);--%>
+<%--            }--%>
+<%--        });--%>
+
+<%--    });--%>
+<%--</script>--%>
+

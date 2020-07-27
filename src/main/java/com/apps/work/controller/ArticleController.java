@@ -1,6 +1,7 @@
 package com.apps.work.controller;
 
 import com.apps.work.model.Article;
+import com.apps.work.model.Comment;
 import com.apps.work.service.ArticleService;
 import net.minidev.json.JSONObject;
 import org.apache.commons.logging.Log;
@@ -27,11 +28,11 @@ public class ArticleController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String renderArticleList(ModelMap model) {
         try {
-            model.addAttribute("article", articleService.getArticleList());
+            model.addAttribute("articles", articleService.getArticleList());
         } catch(Exception e) {
             logger.error(e);
         }
-        return "article.jsp";
+        return "article";
     }
 
     //@Secured("USER")
@@ -45,7 +46,7 @@ public class ArticleController {
         } catch (Exception e) {
             logger.error(e);
         }
-        return "view-article.jsp";
+        return "view-article";
     }
 
     //@Secured("USER")
@@ -61,7 +62,7 @@ public class ArticleController {
         } catch (Exception e) {
             logger.error(e);
         }
-        return "create-article.jsp";
+        return "create-article";
     }
 
     //@Secured("USER")
@@ -80,4 +81,19 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
+    //@Secured("USER")
+    @RequestMapping(value = "/add-comment", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<JSONObject> addComment(ModelMap model, @RequestParam String comment,
+                                                 @RequestParam String articleId) {
+        JSONObject result = new JSONObject();
+        try {
+            articleService.addComment(comment, articleId);
+
+        } catch (Exception e) {
+            logger.error(e);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
 }

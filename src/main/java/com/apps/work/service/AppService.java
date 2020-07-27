@@ -1,10 +1,7 @@
 package com.apps.work.service;
 
 import com.apps.work.model.*;
-import com.apps.work.repository.ApplicationRepository;
-import com.apps.work.repository.FruitRepository;
-import com.apps.work.repository.PageRepository;
-import com.apps.work.repository.UserRepository;
+import com.apps.work.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -28,6 +25,14 @@ public class AppService {
     private Map<String, String> applicationMap;
 
     private List<Page> pages;
+
+    @Autowired
+    private ArticleRepository articleRepository;
+
+    //private Map<String, String> applicationMap;
+
+    private List<Article> articles;
+
 
     @PostConstruct
     public void doDbInserts() {
@@ -84,5 +89,13 @@ public class AppService {
         this.pages = pages;
     }
 
+
+    public List<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
+    }
 
 }

@@ -41,6 +41,8 @@ const appRoutes = {
     REGISTER: '/register',
     PAGE_CREATE: '/create',
     PAGE_LIST: '/page',
+    ARTICLE_LIST: '/article',
+    ADD_COMMENT: '/add-comment',
     APP: '/app',
     DELETE: '/delete',
     SEO_URI_CHECK: '/check-seo-uri',
