@@ -19,4 +19,5 @@ public interface AppConstants {
     String BODY = "body";
     String ID = "id";
     String SEO_URI = "seoUri";
+    Integer RECORDS_PER_PAGE = 10;
 }
