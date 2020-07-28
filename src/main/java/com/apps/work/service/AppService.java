@@ -53,11 +53,6 @@ public class AppService {
         page.setId(1);
         fruit.setPage(page);
         fruitRepository.saveAndFlush(fruit);*/
-        applicationMap = new HashMap<>();
-        List<Application> applicationList = applicationRepository.findAll();
-        for(Application application : applicationList) {
-            applicationMap.put(application.getKeyPair(), application.getValuePair());
-        }
 
         pages = pageRepository.findAllByShowOnMainPage(true);
     }
