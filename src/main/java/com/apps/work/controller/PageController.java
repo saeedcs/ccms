@@ -42,8 +42,8 @@ public class PageController {
     }
 
     //@Secured("USER")
-    @RequestMapping(value = "/view", method = RequestMethod.GET)
-    public String viewPage(ModelMap model, @RequestParam String uri) {
+    @RequestMapping(value = "/view/{uri}", method = RequestMethod.GET)
+    public String viewPage(ModelMap model, @PathVariable String uri) {
         try {
             Optional<Page> pageOptional = Optional.ofNullable(pageService.findBySeoUri(uri));
             if (pageOptional.isPresent()) {
