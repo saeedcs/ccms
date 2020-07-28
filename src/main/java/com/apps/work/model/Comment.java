@@ -28,7 +28,7 @@ public class Comment {
     private String changedBy;
 
     @ManyToOne(fetch=FetchType.LAZY, cascade={ CascadeType.MERGE })
-    @JoinColumn(name = "article_id")
+    @JoinColumn(name = "article_id", insertable= false, updatable = false)
     private Article article;
 
     public Comment() {
@@ -108,13 +108,11 @@ public class Comment {
         Comment comment = (Comment) o;
 
         if (id != null ? !id.equals(comment.id) : comment.id != null) return false;
-        if (commentText != null ? !commentText.equals(comment.commentText) : comment.commentText != null)
-            return false;
+        if (commentText != null ? !commentText.equals(comment.commentText) : comment.commentText != null) return false;
         if (createdOn != null ? !createdOn.equals(comment.createdOn) : comment.createdOn != null) return false;
         if (createdBy != null ? !createdBy.equals(comment.createdBy) : comment.createdBy != null) return false;
         if (changedOn != null ? !changedOn.equals(comment.changedOn) : comment.changedOn != null) return false;
-        if (changedBy != null ? !changedBy.equals(comment.changedBy) : comment.changedBy != null) return false;
-        return article != null ? article.equals(comment.article) : comment.article == null;
+        return changedBy != null ? changedBy.equals(comment.changedBy) : comment.changedBy == null;
     }
 
     @Override
@@ -125,20 +123,19 @@ public class Comment {
         result = 31 * result + (createdBy != null ? createdBy.hashCode() : 0);
         result = 31 * result + (changedOn != null ? changedOn.hashCode() : 0);
         result = 31 * result + (changedBy != null ? changedBy.hashCode() : 0);
-        result = 31 * result + (article != null ? article.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "com.apps.work.model.Comments{" +
+        return "Comment{" +
                 "id=" + id +
                 ", commentText='" + commentText + '\'' +
                 ", createdOn=" + createdOn +
                 ", createdBy='" + createdBy + '\'' +
                 ", changedOn=" + changedOn +
                 ", changedBy='" + changedBy + '\'' +
-                ", article.jsp=" + article +
+                ", article=" + article +
                 '}';
     }
 }
