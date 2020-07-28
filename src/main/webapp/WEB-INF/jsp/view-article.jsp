@@ -39,25 +39,25 @@
                     <buton type="reset" class="btn btn-light">Cancel</buton>
             </div>
         </div>
+            <div class="md-form">
+                <i class="fas fa-pencil-alt prefix"></i>
+                <label >Leave a Comment</label>
+                <textarea id="comment" name="comment" class="md-textarea form-control" rows="3" placeholder="Write your comment here..."></textarea>
+            </div>
+            <div class="form-action">
+                <div class="item">
+                    <buton type="Add Comment" class="btn btn-primary" onclick="article.addComment()">Add Comment</buton>
+                </div>
+
+                <div class="item text-right">
+                    <buton type="reset" class="btn btn-light">Cancel</buton>
+                </div>
+            </div>
     </div>
     <div class="col-md-2 google-add-vertical">
         <div class="add">
             <img src="https://www.google.com/adsense/static/en/images/wideskyscraper_img.jpg" alt="" />
             <jsp:include page="common/vertical-ad.jsp" />
-        </div>
-    </div>
-    <div class="md-form">
-        <i class="fas fa-pencil-alt prefix"></i>
-        <label >Leave a Comment</label>
-        <textarea id="comment" name="comment" class="md-textarea form-control" rows="3" placeholder="Write your comment here..."></textarea>
-    </div>
-    <div class="form-action">
-        <div class="item">
-            <buton type="Add Comment" class="btn btn-primary" onclick="article.addComment()">Add Comment</buton>
-        </div>
-
-        <div class="item text-right">
-            <buton type="reset" class="btn btn-light">Cancel</buton>
         </div>
     </div>
 </div>
