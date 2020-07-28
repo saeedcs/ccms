@@ -121,7 +121,7 @@
                 data['id'] = id;
 
                 let params = $.extend({}, doAjax_params_default);
-                params['url'] = appRoutes.ARTICLE_LIST + appRoutes.ARTICLE_DELETE;
+                params['url'] = appRoutes.ARTICLE_LIST + appRoutes.DELETE;
                 params['data'] = data;
                 params['beforeSendCallbackFunction'] = article.beforeAjax;
                 params['successCallbackFunction'] = article.doneDeletingArticle;
