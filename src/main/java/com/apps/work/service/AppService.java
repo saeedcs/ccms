@@ -26,13 +26,6 @@ public class AppService {
 
     private List<Page> pages;
 
-    @Autowired
-    private ArticleRepository articleRepository;
-
-    //private Map<String, String> applicationMap;
-
-    private List<Article> articles;
-
 
     @PostConstruct
     public void doDbInserts() {
@@ -69,33 +62,16 @@ public class AppService {
         pages = pageRepository.findAllByShowOnMainPage(true);
     }
 
-    public Map<String, String> getApplicationMap() {
-        return applicationMap;
-    }
+    public Map<String, String> getApplicationMap() { return applicationMap; }
 
-    public void setApplicationMap(Map<String, String> applicationMap) {
-        this.applicationMap = applicationMap;
-    }
+    public void setApplicationMap(Map<String, String> applicationMap) { this.applicationMap = applicationMap; }
 
-    public void addApplicationValue(String key, String value) {
-        this.applicationMap.put(key, value);
-    }
+    public void addApplicationValue(String key, String value) { this.applicationMap.put(key, value); }
 
-    public List<Page> getPages() {
-        return pages;
-    }
+    public List<Page> getPages() { return pages; }
 
-    public void setPages(List<Page> pages) {
-        this.pages = pages;
-    }
+    public void setPages(List<Page> pages) { this.pages = pages; }
 
 
-    public List<Article> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(List<Article> articles) {
-        this.articles = articles;
-    }
 
 }

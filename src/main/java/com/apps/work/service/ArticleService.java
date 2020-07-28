@@ -13,4 +13,10 @@ public interface ArticleService {
     Article findBySeoUri(String seoUri);
 
     Comment addComment(String comment, String id);
+
+    Article createArticle(Article article);
+
+    Article findBySeoUriAndIdNot(String seoUri, String id);
+
+    void deleteArticle(String id);
 }

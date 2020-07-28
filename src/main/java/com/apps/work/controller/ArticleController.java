@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -72,7 +74,7 @@ public class ArticleController {
         JSONObject result = new JSONObject();
         try {
 
-
+            articleService.createArticle(article);
 
         } catch (Exception e) {
             logger.error(e);
@@ -95,5 +97,43 @@ public class ArticleController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+
+    //@Secured("USER")
+    @RequestMapping(value = "/check-seo-uri", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Boolean> checkSeoUri(ModelMap model, @RequestParam String seoUri, @RequestParam(required = false) String id) {
+        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
+        try {
+            if(seoUri != null && !seoUri.equals("")) {
+                if(id == null || id.equals("")) {
+                    id = new String("0");
+                }
+                Optional<Article> articleOptional = Optional.ofNullable(articleService.findBySeoUriAndIdNot(seoUri, id));
+                if (articleOptional.isPresent()) {
+                    resultMap.put("exists", true);
+                    return resultMap;
+                }
+            }
+        } catch (Exception e) {
+            logger.error(e);
+        }
+        return resultMap;
+    }
+
+    //@Secured("USER")
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<JSONObject> postDeleteArticle(@RequestParam String id) {
+        JSONObject result = new JSONObject();
+        try {
+            articleService.deleteArticle(id);
+            result.put("deleted", true);
+            return ResponseEntity.status(HttpStatus.OK).body(result);
+        } catch (Exception e) {
+            logger.error(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
+        }
     }
 }

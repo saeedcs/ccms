@@ -2,6 +2,7 @@ package com.apps.work.service.impl;
 
 import com.apps.work.model.Article;
 import com.apps.work.model.Comment;
+import com.apps.work.model.Page;
 import com.apps.work.repository.ArticleRepository;
 import com.apps.work.repository.CommentRepository;
 import com.apps.work.service.ArticleService;
@@ -31,6 +32,22 @@ public class ArticleServiceImpl implements ArticleService{
     @Override
     public Article findBySeoUri(String seoUri) {
         return articleRepository.findBySeoUri(seoUri);
+    }
+
+    @Override
+    public Article findBySeoUriAndIdNot(String seoUri, String id) {
+        return articleRepository.findBySeoUriAndIdNot(seoUri, Integer.parseInt(id));
+    }
+
+    @Override
+    public void deleteArticle(String idStr) {
+        Integer id = Integer.parseInt(idStr);
+        articleRepository.delete(articleRepository.getOne(id));
+    }
+
+    @Override
+    public Article createArticle(Article article) {
+        return articleRepository.save(article);
     }
 
     @Override
