@@ -14,14 +14,14 @@
                     <img src="https://www.shakeout.org/2008/downloads/ShakeOut_BannerAds_GetReady_728x90_v3.gif" alt="" />
                 </div>
             </div>
-            <c:forEach items="${}" var="page">
-                <a href="/page/view?id=${page.id}" class="post-list">
+            <c:forEach items="${}" var="article">
+                <a href="/page/view?id=${article.id}" class="post-list">
                     <div class="description">
-                        <h3>${page.pageTitle}</h3>
+                        <h3>${article.pageTitle}</h3>
 
                         <div class="author-info">
                             <i class="fa fa-user-circle-o"></i>
-                            <div class="name">${page.author}</div>
+                            <div class="name">${article.author}</div>
                             <div class="post-info">
                                 <span>4 jul 2020</span>
                                 <span>1 min read</span>

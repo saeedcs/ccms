@@ -12,8 +12,8 @@
             <div class="close-nav">Close <i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
             <div class="navigation" data-aos="fade-down">
                 <ul>
-                    <c:forEach items="${requestScope.pagesMain}" var="page">
-                    <li><a href="#">${page.pageTitle}</a></li>
+                    <c:forEach items="${requestScope.pagesMain}" var="article">
+                    <li><a href="#">${article.pageTitle}</a></li>
                     </c:forEach>
                 </ul>
             </div>

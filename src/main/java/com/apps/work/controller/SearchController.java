@@ -65,8 +65,12 @@ public class SearchController {
                 ScoreDoc hit = hits[i];
                 Map<String, String> posts = new HashMap<>();
                 Document hitDoc = isearcher.doc(hit.doc);
+                posts.put(AppConstants.ID, hitDoc.get(AppConstants.ID));
+                posts.put(AppConstants.SEO_URI, hitDoc.get(AppConstants.SEO_URI));
                 posts.put(AppConstants.TITLE, hitDoc.get(AppConstants.TITLE));
                 posts.put(AppConstants.BODY, hitDoc.get(AppConstants.BODY));
+                posts.put(AppConstants.AUTHOR, hitDoc.get(AppConstants.AUTHOR));
+                posts.put(AppConstants.DATE, hitDoc.get(AppConstants.DATE));
                 listPosts.add(posts);
             }
             ireader.close();

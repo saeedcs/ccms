@@ -24,10 +24,10 @@
                     <buton type="button" class="btn btn-primary" onclick="page.jumpToCreate();">Create</buton>
                 </div>
             </div>
-            <c:forEach items="${pages}" var="article">
+            <c:forEach items="${articles}" var="article">
             <a href="/page/view/${article.seoUri}" class="post-list">
                 <div class="description">
-                    <h3>${article.pageTitle}</h3>
+                    <h3>${article.title}</h3>
 
                     <div class="author-info">
                         <i class="fa fa-user-circle-o"></i>
