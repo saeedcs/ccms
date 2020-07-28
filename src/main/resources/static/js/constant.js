@@ -45,6 +45,6 @@ const appRoutes = {
     DELETE: '/delete',
     SEO_URI_CHECK: '/check-seo-uri',
     PAGE_DELETE: '/delete',
-
+    SUBSCRIBE: '/subscribe',
 
 }

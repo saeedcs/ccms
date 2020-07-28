@@ -11,7 +11,6 @@
 <c:import url="common/headernav.jsp"/>
 <jsp:include page="common/member-links.jsp" />
 <jsp:include page="common/categories.jsp" />
-<link rel="stylesheet" href="/css/modal.css" />
 <div class="content">
     <div class="row">
         <div class="col-md-10">
