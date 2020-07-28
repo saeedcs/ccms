@@ -38,7 +38,7 @@
                 </div>
             </div>
 
-            <a href="#" class="btn btn-light">Subscribe</a>
+            <a href="#" class="btn btn-light" id="subscribe">Subscribe</a>
         </div>
 
         <a href="#" class="logo white">
