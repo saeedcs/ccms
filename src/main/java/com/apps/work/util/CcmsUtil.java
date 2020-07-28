@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Pattern;
 import org.apache.lucene.index.IndexWriterConfig;
 
@@ -39,7 +40,7 @@ public class CcmsUtil {
         return filenameArr[0] + Calendar.getInstance().getTimeInMillis() + "." + filenameArr[1];
     }
 
-    public static void makeSearchIndex(String id, String seoUri, String title, String body) throws IOException {
+    public static void makeSearchIndex(String id, String seoUri, String title, String body, String author, String date) throws IOException {
         Analyzer analyzer = new StandardAnalyzer();
         Path indexPath = Files.createTempDirectory(AppConstants.INDEXING_DIR);
         Directory directory = FSDirectory.open(indexPath);
@@ -50,6 +51,8 @@ public class CcmsUtil {
         doc.add(new Field(AppConstants.SEO_URI, seoUri, TextField.TYPE_STORED));
         doc.add(new Field(AppConstants.TITLE, title, TextField.TYPE_STORED));
         doc.add(new Field(AppConstants.BODY, body, TextField.TYPE_STORED));
+        doc.add(new Field(AppConstants.AUTHOR, author, TextField.TYPE_STORED));
+        doc.add(new Field(AppConstants.DATE, date, TextField.TYPE_STORED));
         iwriter.addDocument(doc);
         iwriter.close();
     }

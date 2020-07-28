@@ -22,4 +22,5 @@ ${param.titleAppend}
     <link rel="stylesheet" href="https://unpkg.com/aos@3.0.0-beta.6/dist/aos.css" />
     <link rel="stylesheet" href="/css/default.min.css" />
     <link rel="stylesheet" href="/css/ccms.css" />
+    <link rel="stylesheet" href="/css/modal.css" />
 </head>

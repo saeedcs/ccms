@@ -12,8 +12,8 @@
             <div class="close-nav">Close <i class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
             <div class="navigation" data-aos="fade-down">
                 <ul>
-                    <c:forEach items="${requestScope.pagesMain}" var="page">
-                    <li><a href="#">${page.pageTitle}</a></li>
+                    <c:forEach items="${requestScope.pagesMain}" var="article">
+                    <li><a href="#">${article.pageTitle}</a></li>
                     </c:forEach>
                 </ul>
             </div>
@@ -38,7 +38,7 @@
                 </div>
             </div>
 
-            <a href="#" class="btn btn-light">Subscribe</a>
+            <a href="#" class="btn btn-light" id="subscribe">Subscribe</a>
         </div>
 
         <a href="#" class="logo white">
