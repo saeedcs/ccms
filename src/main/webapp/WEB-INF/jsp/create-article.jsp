@@ -4,8 +4,13 @@
 <jsp:include page="common/header.jsp">
     <jsp:param name="titleAppend" value="#{title}"  />
 </jsp:include>
-<jsp:include page="common/headernav.jsp" />
+<c:set var="pagesMain" value="${pagesMain}" scope="request"/>
+<%--<jsp:include page="common/headernav.jsp" />
+<jsp:param name="pagesMain" value="${pagesMain}"  />
+</jsp:include>--%>
+<c:import url="common/headernav.jsp"/>
 <jsp:include page="common/member-links.jsp" />
+<jsp:include page="common/categories.jsp" />
 <div class="content">
     <div class="alert alert-success invisible" role="alert">
         <h4 class="alert-heading">
@@ -30,17 +35,17 @@
 
     <form>
         <div class="add-post-wrapper">
-
-
             <div class="form-data">
                 <div class="form-group">
                     <label>Title</label>
-                    <input name="articleTitle" id="articleTitle" type="text" class="form-control" placeholder="Enter Post Title" value="${article.articleTitle}"/>
+                    <input name="articleTitle" id="articleTitle" type="text" class="form-control" placeholder="Enter Post Title" value="${article.articleTitle}"  onblur="article.makeSeoUrl(${(article.id)});" onkeyup="article.makeSeoUrl(${(article.id)});"/>
+                    <span id="articleTitleErr" class="invalid-feedback invisible"></span>"/>
                 </div>
 
                 <div class="form-group">
                     <label>SEO URI</label>
-                    <input name="seoUri" id="seoUri" type="text" class="form-control" placeholder="Enter SEO URI e.g. https://something.com"  value="${article.seoUri}" />
+                    <input name="seoUri" id="seoUri" type="text" class="form-control" placeholder="Enter SEO URI e.g. https://something.com"  value="${article.seoUri}" onblur="article.checkSeoUriDuplicate(this.value, ${(article.id)})" onkeyup="article.checkSeoUriDuplicate(this.value, ${(article.id)})"/>
+                    <span id="seoUriErr" class="invalid-feedback invisible">Your SEO URI is not unique, Please change it</span>" />
                 </div>
 
                 <div class="form-group">
@@ -160,8 +165,45 @@
         contextmenu: "link image imagetools table",
         file_picker_types: 'image',
         automatic_uploads: true,
-        images_upload_url: '/upload/file-upload',
-        images_upload_base_path: '/upload/'
+        images_upload_url: appRoutes.UPLOAD + appRoutes.FILE_UPLOAD,
+        images_upload_base_path: '/upload/',
+        images_upload_handler: function (blobInfo, success, failure) {
+            var xhr, formData;
+
+            xhr = new XMLHttpRequest();
+            xhr.withCredentials = false;
+            xhr.open('POST', appRoutes.UPLOAD + appRoutes.FILE_UPLOAD);
+
+            xhr.onload = function() {
+                var json;
+
+                if (xhr.status != 200) {
+                    failure('HTTP Error: ' + xhr.status);
+                    return;
+                }
+
+                json = JSON.parse(xhr.responseText);
+
+                if (!json || typeof json.location != 'string') {
+                    failure('Invalid JSON: ' + xhr.responseText);
+                    return;
+                }
+
+                success(json.location);
+            };
+
+            formData = new FormData();
+            formData.append('file', blobInfo.blob(), blobInfo.filename());
+            let header = $("meta[name='_csrf_header']").attr("content");
+            let token = $("meta[name='_csrf']").attr("content");
+
+            xhr.setRequestHeader(header, token);
+
+            // append CSRF token in the form data
+            formData.append(header, token);
+
+            xhr.send(formData);
+        }
     });
 </script>
 
@@ -177,11 +219,13 @@
             let body = document.getElementById('articleBody').value;
             let seoUri = document.getElementById('seoUri').value;
             let id = document.getElementById('pid').value;
+            let mainPageImg = page.extractFirstImgSrc(body);
 
             let data = {};
             data['articleTitle'] = title;
             data['articleBody'] = body;
             data['seoUri'] = seoUri;
+
 
 
             if(id != undefined && id != null) {
@@ -192,10 +236,10 @@
             } else {
                 data['showMain'] = false;
             }
-            var params = $.extend({}, doAjax_params_default);
+            let params = $.extend({}, doAjax_params_default);
             params['url'] = appRoutes.ARTICLE_LIST + appRoutes.ARTICLE_CREATE;
             params['data'] = JSON. stringify(data);
-            params['beforeSendCallbackFunction'] = article.beforeCreatingArticle;
+            params['beforeSendCallbackFunction'] = article.beforeAjax();
             params['successCallbackFunction'] = article.doneCreatingArticle;
             params['requestType'] = appObjects.REQUEST_TYPE.post;
             params['contentType'] = 'application/json';
@@ -207,12 +251,65 @@
             console.log(response);
             window.location.href = appRoutes.ARTICLE_LIST + '/';
         },
-        beforeCreatingArticle: function() {
+        beforeAjax: function() {
             let header = $("meta[name='_csrf_header']").attr("content");
             let token = $("meta[name='_csrf']").attr("content");
             $(document).ajaxSend(function (e, xhr, options) {
                 xhr.setRequestHeader(header, token);
             });
+        },
+        toSeoUrl: function (url) {
+            return url.toString()               // Convert to string
+                .normalize('NFD')               // Change diacritics
+                .replace(/[\u0300-\u036f]/g,'') // Remove illegal characters
+                .replace(/\s+/g,'-')            // Change whitespace to dashes
+                .toLowerCase()                  // Change to lowercase
+                .replace(/&/g,'-and-')          // Replace ampersand
+                .replace(/[^a-z0-9\-]/g,'')     // Remove anything that is not a letter, number or dash
+                .replace(/-+/g,'-')             // Remove duplicate dashes
+                .replace(/^-*/,'')              // Remove starting dashes
+                .replace(/-*$/,'');             // Remove trailing dashes
+        },
+        makeSeoUrl: function (id) {
+            let articleTitle = document.getElementById('articleTitle').value;
+
+            if(articleTitle != undefined && articleTitle.trim() != '') {
+                let seoUri = document.getElementById('seoUri').value = article.toSeoUrl(articleTitle);
+                this.checkSeoUriDuplicate(seoUri, id);
+            }
+
+        },
+        checkSeoUriDuplicate: function(seoUri, id) {
+            let data = {}
+            data['seoUri'] = seoUri;
+            data['id'] = id;
+
+            let params = $.extend({}, doAjax_params_default);
+            params['url'] = appRoutes.ARTICLE_LIST + appRoutes.SEO_URI_CHECK;
+            params['data'] = data;
+            params['successCallbackFunction'] = article.isSeoUriDuplicate;
+            params['beforeSendCallbackFunction'] = article.beforeAjax;
+            params['requestType'] = appObjects.REQUEST_TYPE.post;
+            //params['contentType'] = 'application/json';
+            doAjax(params);
+        },
+        isSeoUriDuplicate: function(response) {
+            console.log(response);
+            if(response.exists === true) {
+                validateForms.invalidField('seoUri', appObjects.ERROR_MSG.seoUriExists);
+            } else {
+                validateForms.validField('seoUri')
+            }
+        },
+        extractFirstImgSrc(str) {
+            var re = /<img[^>]+src="([^">]+)/g
+            var results = re.exec(str);
+            if(results == undefined || results == null) {
+                return '';
+            }
+            var source = results[1];
+
+            return source;
         }
     }
 </script>

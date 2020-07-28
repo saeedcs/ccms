@@ -1,10 +1,7 @@
 package com.apps.work.service;
 
 import com.apps.work.model.*;
-import com.apps.work.repository.ApplicationRepository;
-import com.apps.work.repository.FruitRepository;
-import com.apps.work.repository.PageRepository;
-import com.apps.work.repository.UserRepository;
+import com.apps.work.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -28,6 +25,7 @@ public class AppService {
     private Map<String, String> applicationMap;
 
     private List<Page> pages;
+
 
     @PostConstruct
     public void doDbInserts() {
@@ -64,25 +62,16 @@ public class AppService {
         pages = pageRepository.findAllByShowOnMainPage(true);
     }
 
-    public Map<String, String> getApplicationMap() {
-        return applicationMap;
-    }
+    public Map<String, String> getApplicationMap() { return applicationMap; }
 
-    public void setApplicationMap(Map<String, String> applicationMap) {
-        this.applicationMap = applicationMap;
-    }
+    public void setApplicationMap(Map<String, String> applicationMap) { this.applicationMap = applicationMap; }
 
-    public void addApplicationValue(String key, String value) {
-        this.applicationMap.put(key, value);
-    }
+    public void addApplicationValue(String key, String value) { this.applicationMap.put(key, value); }
 
-    public List<Page> getPages() {
-        return pages;
-    }
+    public List<Page> getPages() { return pages; }
 
-    public void setPages(List<Page> pages) {
-        this.pages = pages;
-    }
+    public void setPages(List<Page> pages) { this.pages = pages; }
+
 
 
 }

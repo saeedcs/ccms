@@ -1,1 +1,3 @@
-INSERT INTO cms.article (id, article_body, article_title, author, changed_by, changed_on, created_by, created_on, excerpt, main_page_img) VALUES (1, 'Sample Article Body', 'Sample Title', 'Saeed', null, null, null, null, null, null);
+INSERT INTO cms.article (id, article_body, article_title, author, changed_by, changed_on, created_by, created_on, excerpt, main_page_img, seo_uri) VALUES (1, 'warda', 'firdt article', 'xyz', null, null, null, null, null, null, null);
+INSERT INTO cms.article (id, article_body, article_title, author, changed_by, changed_on, created_by, created_on, excerpt, main_page_img, seo_uri) VALUES (2, 'warda', 'new article', 'xyz', null, null, null, null, null, null, null);
+INSERT INTO cms.article (id, article_body, article_title, author, changed_by, changed_on, created_by, created_on, excerpt, main_page_img, seo_uri) VALUES (3, 'test', 'TEST', 'warda', null, null, null, null, null, null, null);
