@@ -1,7 +1,20 @@
 package com.apps.work.util;
 
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.TextField;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Calendar;
 import java.util.regex.Pattern;
+import org.apache.lucene.index.IndexWriterConfig;
 
 public class CcmsUtil {
 
@@ -24,5 +37,20 @@ public class CcmsUtil {
     public static String formatUploadedFilename(String originalFilename) {
         String[] filenameArr = originalFilename.split("\\.");
         return filenameArr[0] + Calendar.getInstance().getTimeInMillis() + "." + filenameArr[1];
+    }
+
+    public static void makeSearchIndex(String id, String seoUri, String title, String body) throws IOException {
+        Analyzer analyzer = new StandardAnalyzer();
+        Path indexPath = Files.createTempDirectory(AppConstants.INDEXING_DIR);
+        Directory directory = FSDirectory.open(indexPath);
+        IndexWriterConfig config = new IndexWriterConfig(analyzer);
+        IndexWriter iwriter = new IndexWriter(directory, config);
+        Document doc = new Document();
+        doc.add(new Field(AppConstants.ID, id, TextField.TYPE_STORED));
+        doc.add(new Field(AppConstants.SEO_URI, seoUri, TextField.TYPE_STORED));
+        doc.add(new Field(AppConstants.TITLE, title, TextField.TYPE_STORED));
+        doc.add(new Field(AppConstants.BODY, body, TextField.TYPE_STORED));
+        iwriter.addDocument(doc);
+        iwriter.close();
     }
 }

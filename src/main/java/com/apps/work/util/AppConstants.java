@@ -14,4 +14,10 @@ public interface AppConstants {
     String RESET_URI = "/reset";
     String CODE = "code";
     String UPLOAD_FOLDER = "upload/";
+    String INDEXING_DIR = "search-index/";
+    String TITLE = "title";
+    String BODY = "body";
+    String ID = "id";
+    String SEO_URI = "seoUri";
+    Integer RECORDS_PER_PAGE = 10;
 }
