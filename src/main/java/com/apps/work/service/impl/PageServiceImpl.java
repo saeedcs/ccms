@@ -6,6 +6,8 @@ import com.apps.work.service.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +44,7 @@ public class PageServiceImpl implements PageService {
 
     @Override
     public Page createPage(Page page) {
+        page.setCreatedOn(new Date(Calendar.getInstance().getTimeInMillis()));
         return pageRepository.save(page);
     }
 
