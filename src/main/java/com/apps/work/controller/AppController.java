@@ -3,6 +3,7 @@ package com.apps.work.controller;
 import com.apps.work.model.Page;
 import com.apps.work.service.AppService;
 import com.apps.work.service.PageService;
+import com.apps.work.service.RssFeedView;
 import com.apps.work.util.KeyValue;
 import net.minidev.json.JSONObject;
 import org.apache.commons.logging.Log;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.View;
 
 import java.util.*;
 
@@ -27,6 +29,9 @@ public class AppController {
 
     @Autowired
     private AppService appService;
+
+    @Autowired
+    private RssFeedView view;
 
     //@Secured("USER")
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -53,6 +58,12 @@ public class AppController {
             logger.error(e);
         }
         return "app/app";
+    }
+
+    @GetMapping("/rss")
+    @ResponseBody
+    public View getFeed() {
+        return view;
     }
 
 }
