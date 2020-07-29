@@ -15,6 +15,8 @@
 <script type="text/javascript" src="/js/custom.js?v=1"></script>
 <script type="text/javascript" src="/js/constant.js?v=1"></script>
 <script type="text/javascript" src="/js/ccms.js?v=1"></script>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ur_PK/sdk.js#xfbml=1&version=v7.0" nonce="LFDCqdjE"></script>
 
 <div id="subscribeModal" class="modal">
     <!-- Modal content -->
