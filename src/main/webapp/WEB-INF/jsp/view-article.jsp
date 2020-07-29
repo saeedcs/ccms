@@ -11,7 +11,6 @@
 <c:import url="common/headernav.jsp" />
 <jsp:include page="common/member-links.jsp" />
 <jsp:include page="common/categories.jsp" />
-<link rel="stylesheet" href="/css/modal.css" />
 <div class="content">
     <div class="row">
         <div class="col-md-10">
@@ -33,33 +32,33 @@
                 </div>
             </div>
             <div class="form-action">
-                <div class="item">
+                <div class="item text-right">
                     <buton type="button" class="btn btn-primary" onclick="article.editArticle(${article.id})">Edit</buton>
                     <buton id="delete" type="button" class="btn btn-primary" onclick="article.editArticle(${article.id})">Delete</buton>
                     <buton type="reset" class="btn btn-light">Cancel</buton>
             </div>
         </div>
+            <div class="md-form">
+                <i class="fas fa-pencil-alt prefix"></i>
+                <label >Leave a Comment</label>
+                <textarea id="comment" name="comment" class="md-textarea form-control" rows="3" placeholder="Write your comment here..."></textarea>
+            </div>
+            <div class="form-action">
+                <div class="item">
+                    <buton type="Add Comment" class="btn btn-primary" onclick="article.addComment()">Add Comment</buton>
+                </div>
+
+                <div class="item text-right">
+                    <buton type="reset" class="btn btn-light">Cancel</buton>
+                </div>
+            </div>
     </div>
     <div class="col-md-2 google-add-vertical">
         <div class="add">
             <img src="https://www.google.com/adsense/static/en/images/wideskyscraper_img.jpg" alt="" />
-            <jsp:include page="common/vertical-ad.jsp" />
         </div>
     </div>
-    <div class="md-form">
-        <i class="fas fa-pencil-alt prefix"></i>
-        <label >Leave a Comment</label>
-        <textarea id="comment" name="comment" class="md-textarea form-control" rows="3" placeholder="Write your comment here..."></textarea>
-    </div>
-    <div class="form-action">
-        <div class="item">
-            <buton type="Add Comment" class="btn btn-primary" onclick="article.addComment()">Add Comment</buton>
-        </div>
-
-        <div class="item text-right">
-            <buton type="reset" class="btn btn-light">Cancel</buton>
-        </div>
-    </div>
+</div>
 </div>
 
 <jsp:include page="common/footer.jsp" />
@@ -80,7 +79,7 @@
             <span class="close">&times;</span>
             <p>Are you sure you want to delete?
             </p>
-            <buton id="delete" type="button" class="btn btn-danger" onclick="page.deletePage(${page.id})">Delete</buton>
+            <buton id="delete" type="button" class="btn btn-danger" onclick="article.deleteArticle(${article.id})">Delete</buton>
             <p></p><buton type="button" class="btn btn-light" onclick="closeModal()">No</buton>
 
         </div>
@@ -115,13 +114,13 @@
             }
         }
 
-        var page = {
-            deletePage: function(id) {
+        var article = {
+            deleteArticle: function(id) {
                 let data = {};
                 data['id'] = id;
 
                 let params = $.extend({}, doAjax_params_default);
-                params['url'] = appRoutes.ARTICLE_LIST + appRoutes.ARTICLE_DELETE;
+                params['url'] = appRoutes.ARTICLE_LIST + appRoutes.DELETE;
                 params['data'] = data;
                 params['beforeSendCallbackFunction'] = article.beforeAjax;
                 params['successCallbackFunction'] = article.doneDeletingArticle;
