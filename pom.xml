@@ -129,6 +129,11 @@
 			<artifactId>lucene-queryparser</artifactId>
 			<version>7.7.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.rometools</groupId>
+			<artifactId>rome</artifactId>
+			<version>1.10.0</version>
+		</dependency>
     </dependencies>
 
 	<build>
