@@ -28,7 +28,7 @@ public class Comment {
     private String changedBy;
 
     @ManyToOne(fetch=FetchType.LAZY, cascade={ CascadeType.MERGE })
-    @JoinColumn(name = "article_id", insertable= false, updatable = false)
+    @JoinColumn(name = "article_id")
     private Article article;
 
     public Comment() {
