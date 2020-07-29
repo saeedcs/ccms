@@ -51,13 +51,6 @@
 
 <jsp:include page="common/footer.jsp" />
 
-<script>
-    var page = {
-        editPage: function(id) {
-            window.location.href = '/page/create?id=' + id;
-        }
-    }
-</script>
 
 <!-- The Modal -->
 <div id="deleteModal" class="modal">
@@ -103,6 +96,9 @@
     }
 
     var page = {
+        editPage: function(id) {
+            window.location.href = '/page/create?id=' + id;
+        },
         deletePage: function(id) {
             let data = {};
             data['id'] = id;
