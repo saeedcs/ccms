@@ -38,7 +38,7 @@
             <div class="form-data">
                 <div class="form-group">
                     <label>Title</label>
-                    <input name="articleTitle" id="articleTitle" type="text" class="form-control" placeholder="Enter Post Title" value="${article.articleTitle}"  onblur="article.makeSeoUrl(${(article.id)});" onkeyup="article.makeSeoUrl(${(article.id)});"/>
+                    <input name="articleTitle" id="articleTitle" type="text" class="form-control" placeholder="Enter Article Title" value="${article.articleTitle}"  onblur="article.makeSeoUrl(${(article.id)});" onkeyup="article.makeSeoUrl(${(article.id)});"/>
                     <span id="articleTitleErr" class="invalid-feedback invisible"></span>"/>
                 </div>
 
