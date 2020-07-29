@@ -1,0 +1,2 @@
+INSERT INTO cms.comment (id, changed_by, changed_on, comment_text, created_by, created_on, article_id) VALUES (30, null, null, 'xyz', null, null, 1);
+INSERT INTO cms.comment (id, changed_by, changed_on, comment_text, created_by, created_on, article_id) VALUES (31, null, null, 'xyz', null, null, 1);
