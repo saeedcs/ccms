@@ -39,13 +39,13 @@
                 <div class="form-group">
                     <label>Title</label>
                     <input name="articleTitle" id="articleTitle" type="text" class="form-control" placeholder="Enter Article Title" value="${article.articleTitle}"  onblur="article.makeSeoUrl(${(article.id)});" onkeyup="article.makeSeoUrl(${(article.id)});"/>
-                    <span id="articleTitleErr" class="invalid-feedback invisible"></span>"/>
+                    <span id="articleTitleErr" class="invalid-feedback invisible"></span>
                 </div>
 
                 <div class="form-group">
                     <label>SEO URI</label>
                     <input name="seoUri" id="seoUri" type="text" class="form-control" placeholder="Enter SEO URI e.g. https://something.com"  value="${article.seoUri}" onblur="article.checkSeoUriDuplicate(this.value, ${(article.id)})" onkeyup="article.checkSeoUriDuplicate(this.value, ${(article.id)})"/>
-                    <span id="seoUriErr" class="invalid-feedback invisible">Your SEO URI is not unique, Please change it</span>" />
+                    <span id="seoUriErr" class="invalid-feedback invisible">Your SEO URI is not unique, Please change it</span>
                 </div>
 
                 <div class="form-group">

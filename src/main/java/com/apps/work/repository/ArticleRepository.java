@@ -11,5 +11,5 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
    public Article findBySeoUriAndIdNot(String seoUri, int parseInt);
 
-   public List<Article> findTop10ByOrderByCreatedOnByDesc();
+   //public List<Article> findTop10ByOrderByCreatedOnByDesc();
 }
