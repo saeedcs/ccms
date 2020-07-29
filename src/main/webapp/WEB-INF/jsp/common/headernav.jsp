@@ -1,4 +1,5 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <body <sec:authorize access="!hasAnyRole('ADMIN', 'USER')">class="simple-page" </sec:authorize>>
 <div class="overlay d-none"></div>
@@ -21,7 +22,7 @@
             <div class="social-media"  data-aos="fade-down">
                 <h3>Find Us on Social media</h3>
                 <ul>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><span data-href="<spring:message code="base.uri" text=""/>"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<spring:message code="base.uri.encoded" text=""/>&amp;src=sdkpreparse"><i class="fa fa-facebook"></i></a></span></li>
                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                     <li><a href="/app/rss"><i class="fa fa-rss"></i></a></li>
                 </ul>
