@@ -219,7 +219,7 @@
             let body = document.getElementById('articleBody').value;
             let seoUri = document.getElementById('seoUri').value;
             let id = document.getElementById('pid').value;
-            let mainPageImg = page.extractFirstImgSrc(body);
+            let mainPageImg = article.extractFirstImgSrc(body);
 
             let data = {};
             data['articleTitle'] = title;
