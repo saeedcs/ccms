@@ -7,12 +7,16 @@ import net.minidev.json.JSONObject;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -47,6 +51,7 @@ public class PageController {
         try {
             Optional<Page> pageOptional = Optional.ofNullable(pageService.findBySeoUri(uri));
             if (pageOptional.isPresent()) {
+                System.out.println(pageOptional.get().getCreatedOn());
                 model.addAttribute("page", pageOptional.get());
             }
             model.addAttribute("pagesMain", appService.getPages());
