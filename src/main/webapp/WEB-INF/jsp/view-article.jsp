@@ -33,8 +33,8 @@
             </div>
             <div class="form-action">
                 <div class="item text-right">
-                    <buton type="button" class="btn btn-primary" onclick="article.editArticle(${article.id})">Edit</buton>
-                    <buton id="delete" type="button" class="btn btn-primary" onclick="article.editArticle(${article.id})">Delete</buton>
+                    <buton type="button" class="btn btn-primary" onclick="article.editArticle(${article.id});">Edit</buton>
+                    <buton id="delete" type="button" class="btn btn-primary" onclick="article.editArticle(${article.id});">Delete</buton>
                     <buton type="reset" class="btn btn-light">Cancel</buton>
             </div>
         </div>
@@ -63,13 +63,6 @@
 
 <jsp:include page="common/footer.jsp" />
 
-<script>
-    var article = {
-        editArticle: function(id) {
-            window.location.href = '/article/create?id=' + id;
-        }
-    }
-</script>
 
     <!-- The Modal -->
     <div id="deleteModal" class="modal">
@@ -115,6 +108,9 @@
         }
 
         var article = {
+            editArticle: function(id) {
+                window.location.href = '/article/create?id=' + id;
+            },
             deleteArticle: function(id) {
                 let data = {};
                 data['id'] = id;
@@ -140,36 +136,25 @@
                     xhr.setRequestHeader(header, token);
                 });
             },
+            addComment : function () {
+                let comment= document.getElementById('comment').value;
+                let data = {};
+                data['comment'] = comment;
+                data['articleId'] = ${article.id};
+                console.log(data);
+
+                let params = $.extend({}, doAjax_params_default);
+                params['url'] = appRoutes.ARTICLE_LIST + appRoutes.ADD_COMMENT;
+                params['data'] = data;
+                params['beforeSendCallbackFunction'] = article.beforeAjax;
+                params['successCallbackFunction'] = article.doneAddingComment;
+                params['requestType'] = appObjects.REQUEST_TYPE.post;
+                //params['contentType'] = 'application/json';
+                doAjax(params);
+            },
+            doneAddingComment: function (response) {
+                console.log("Comment added" );
+                console.log(response);
+            }
         }
     </script>
-<script>
-    var article = {
-        addComment : function () {
-            let comment= document.getElementById('comment').value;
-            let data = {};
-            data['comment'] = comment;
-            data['articleId'] = ${article.id};
-            console.log(data);
-
-            let params = $.extend({}, doAjax_params_default);
-            params['url'] = appRoutes.ARTICLE_LIST + appRoutes.ADD_COMMENT;
-            params['data'] = data;
-            params['beforeSendCallbackFunction'] = article.beforeAjax;
-            params['successCallbackFunction'] = article.doneAddingComment;
-            params['requestType'] = appObjects.REQUEST_TYPE.post;
-            //params['contentType'] = 'application/json';
-            doAjax(params);
-        },
-        doneAddingComment: function (response) {
-            console.log("Comment added" );
-            console.log(response);
-        },
-        beforeAjax: function() {
-            let header = $("meta[name='_csrf_header']").attr("content");
-            let token = $("meta[name='_csrf']").attr("content");
-            $(document).ajaxSend(function (e, xhr, options) {
-                xhr.setRequestHeader(header, token);
-            });
-        },
-    }
-</script>
