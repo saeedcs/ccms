@@ -86,7 +86,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="showMain">Show Link on Main Page </label>
-                            <input type="checkbox" id="showMain" name="showMain">
+                            <input type="checkbox" id="showMain" name="showMain" <c:if test="${page.showOnMainPage == true}"> checked </c:if>>
                         </div>
                     </div>
                 </div>
@@ -234,9 +234,9 @@
                 data['id'] = id;
             }
             if ($('#showMain').is(":checked")) {
-                data['showMain'] = true;
+                data['showOnMainPage'] = true;
             } else {
-                data['showMain'] = false;
+                data['showOnMainPage'] = false;
             }
             let params = $.extend({}, doAjax_params_default);
             params['url'] = appRoutes.PAGE_LIST + appRoutes.PAGE_CREATE;

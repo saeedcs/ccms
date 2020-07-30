@@ -8,10 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class AppService {
@@ -26,6 +23,7 @@ public class AppService {
 
     private List<Page> pages;
 
+    private List<String> pageTitles;
 
     @PostConstruct
     public void doDbInserts() {
@@ -55,6 +53,10 @@ public class AppService {
         fruitRepository.saveAndFlush(fruit);*/
 
         pages = pageRepository.findAllByShowOnMainPage(true);
+        pageTitles = new ArrayList<>();
+        for(Page page : pages) {
+            pageTitles.add(page.getPageTitle());
+        }
     }
 
     public Map<String, String> getApplicationMap() { return applicationMap; }
@@ -66,6 +68,14 @@ public class AppService {
     public List<Page> getPages() { return pages; }
 
     public void setPages(List<Page> pages) { this.pages = pages; }
+
+    public List<String> getPageTitles() {
+        return pageTitles;
+    }
+
+    public void setPageTitles(List<String> pageTitles) {
+        this.pageTitles = pageTitles;
+    }
 
 
 

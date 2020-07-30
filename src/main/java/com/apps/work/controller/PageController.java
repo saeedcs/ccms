@@ -16,10 +16,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/page")
@@ -37,7 +34,7 @@ public class PageController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String renderPageList(ModelMap model) {
         try {
-            model.addAttribute("pagesMain", appService.getPages());
+            model.addAttribute("pagesMain", appService.getPageTitles());
             model.addAttribute("pages", pageService.getPageList());
         } catch(Exception e) {
             logger.error(e);
@@ -51,10 +48,9 @@ public class PageController {
         try {
             Optional<Page> pageOptional = Optional.ofNullable(pageService.findBySeoUri(uri));
             if (pageOptional.isPresent()) {
-                System.out.println(pageOptional.get().getCreatedOn());
                 model.addAttribute("page", pageOptional.get());
             }
-            model.addAttribute("pagesMain", appService.getPages());
+            model.addAttribute("pagesMain", appService.getPageTitles());
         } catch (Exception e) {
             logger.error(e);
         }
@@ -71,7 +67,7 @@ public class PageController {
                     model.addAttribute("page", pageOptional.get());
                 }
             }
-            model.addAttribute("pagesMain", appService.getPages());
+            model.addAttribute("pagesMain", appService.getPageTitles());
         } catch (Exception e) {
             logger.error(e);
         }
@@ -84,6 +80,18 @@ public class PageController {
     public ResponseEntity<JSONObject> postCreatePage(ModelMap model, @RequestBody(required = false) Page page) {
         JSONObject result = new JSONObject();
         try {
+            List<String> pageTitleList = appService.getPageTitles();
+            if(page.getShowOnMainPage()) {
+                if(!pageTitleList.contains(page.getPageTitle())) {
+                    pageTitleList.add(page.getPageTitle());
+                    appService.setPageTitles(pageTitleList);
+                }
+            } else {
+                if(pageTitleList.contains(page.getPageTitle())) {
+                    pageTitleList.remove(page.getPageTitle());
+                    appService.setPageTitles(pageTitleList);
+                }
+            }
             pageService.createPage(page);
         } catch (Exception e) {
             logger.error(e);
