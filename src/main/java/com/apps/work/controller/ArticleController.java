@@ -15,6 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -49,6 +50,8 @@ public class ArticleController {
             Optional<Article> articleOptional = articleService.getArticle(Integer.parseInt(id));
             if (articleOptional.isPresent()) {
                 model.addAttribute("article", articleOptional.get());
+                List<Comment> commentList = articleService.getCommentsByArticleId(id);
+                model.addAttribute("comments", commentList);
             }
         } catch (Exception e) {
             logger.error(e);

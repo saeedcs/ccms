@@ -135,7 +135,6 @@ public class Comment {
                 ", createdBy='" + createdBy + '\'' +
                 ", changedOn=" + changedOn +
                 ", changedBy='" + changedBy + '\'' +
-                ", article=" + article +
                 '}';
     }
 }

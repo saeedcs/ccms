@@ -59,7 +59,49 @@
         </div>
     </div>
 </div>
-</div>
+    <div class="panel panel-default widget">
+        <div class="panel-heading">
+            <span class="glyphicon glyphicon-comment"></span>
+            <h3 class="panel-title">
+                Recent Comments</h3>
+            <span class="label label-info">
+                    </span>
+        </div>
+        <c:forEach items="${comments}" var="comments" >
+        <div class="panel-body" >
+            <ul class="list-group"  >
+                <li class="list-group-item" style="background-color: aliceblue; width:50%; height:80px" >
+                    <div class="row">
+                        <div class="col-xs-2 col-md-1 ">
+                            <img src="http://placehold.it/80" class="img-circle img-responsive" alt="" width="50px"/></div>
+                        <div class="col-xs-10 col-md-11">
+                            <div>
+                                <a href="http://www.jquery2dotnet.com/2013/10/google-style-login-page-desing-usign.html"></a>
+                                <div class="mic-info">
+<%--                                    By: <a href="#">Bhaumik Patel</a>--%>
+                                  <small> <span style="color:#ff0000;"> on 2 Aug 2013</span> </small>
+                                </div>
+                            </div>
+                            <div class="comment-text">
+                                <h6  style="color:black"> ${comments.commentText}</h6>
+                            </div>
+                            <%--<div class="action">--%>
+                            <%--<button type="button" class="btn btn-primary btn-xs" title="Edit">--%>
+                            <%--<span class="glyphicon glyphicon-pencil"></span>--%>
+                            <%--</button>--%>
+                            <%--<button type="button" class="btn btn-success btn-xs" title="Approved">--%>
+                            <%--<span class="glyphicon glyphicon-ok"></span>--%>
+                            <%--</button>--%>
+                            <%--<button type="button" class="btn btn-danger btn-xs" title="Delete">--%>
+                            <%--<span class="glyphicon glyphicon-trash"></span>--%>
+                            <%--</button>--%>
+                            <%--</div>--%>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            </c:forEach>
+        </div>
 
 <jsp:include page="common/footer.jsp" />
 
