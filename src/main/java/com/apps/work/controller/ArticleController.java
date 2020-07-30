@@ -2,6 +2,7 @@ package com.apps.work.controller;
 
 import com.apps.work.model.Article;
 import com.apps.work.model.Comment;
+import com.apps.work.service.AppService;
 import com.apps.work.service.ArticleService;
 import net.minidev.json.JSONObject;
 import org.apache.commons.logging.Log;
@@ -26,11 +27,15 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
+    @Autowired
+    private AppService appService;
+
     //@Secured("USER")
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String renderArticleList(ModelMap model) {
         try {
             model.addAttribute("articles", articleService.getArticleList());
+            model.addAttribute("pagesMain", appService.getPageTitles());
         } catch(Exception e) {
             logger.error(e);
         }
@@ -48,6 +53,7 @@ public class ArticleController {
         } catch (Exception e) {
             logger.error(e);
         }
+        model.addAttribute("pagesMain", appService.getPageTitles());
         return "view-article";
     }
 
@@ -64,6 +70,7 @@ public class ArticleController {
         } catch (Exception e) {
             logger.error(e);
         }
+        model.addAttribute("pagesMain", appService.getPageTitles());
         return "create-article";
     }
 

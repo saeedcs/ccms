@@ -55,7 +55,7 @@
     </div>
     <div class="col-md-2 google-add-vertical">
         <div class="add">
-            <img src="https://www.google.com/adsense/static/en/images/wideskyscraper_img.jpg" alt="" />
+            <jsp:include page="common/vertical-ad.jsp" />
         </div>
     </div>
 </div>
