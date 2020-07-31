@@ -19,11 +19,16 @@ public class AppService {
     @Autowired
     private PageRepository pageRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     private Map<String, String> applicationMap;
 
     private List<Page> pages;
 
     private List<String> pageTitles;
+
+    private List<Category> categoryList;
 
     @PostConstruct
     public void doDbInserts() {
@@ -57,6 +62,8 @@ public class AppService {
         for(Page page : pages) {
             pageTitles.add(page.getPageTitle());
         }
+
+        categoryList = categoryRepository.findAll();
     }
 
     public Map<String, String> getApplicationMap() { return applicationMap; }
@@ -77,6 +84,11 @@ public class AppService {
         this.pageTitles = pageTitles;
     }
 
+    public List<Category> getCategoryList() {
+        return categoryList;
+    }
 
-
+    public void setCategoryList(List<Category> categoryList) {
+        this.categoryList = categoryList;
+    }
 }

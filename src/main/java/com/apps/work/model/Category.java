@@ -14,7 +14,7 @@ public class Category {
     private String catName;
 
     @Column
-    private boolean showOnMainPage;
+    private Boolean showOnMainPage;
 
     @Column(name = "created_on", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
@@ -33,7 +33,7 @@ public class Category {
     public Category() {
     }
 
-    public Category(Integer id, String catName, boolean showOnMainPage, Date createdOn, String createdBy, Date changedOn, String changedBy) {
+    public Category(Integer id, String catName, Boolean showOnMainPage, Date createdOn, String createdBy, Date changedOn, String changedBy) {
         this.id = id;
         this.catName = catName;
         this.showOnMainPage = showOnMainPage;
@@ -59,11 +59,11 @@ public class Category {
         this.catName = catName;
     }
 
-    public boolean isShowOnMainPage() {
+    public Boolean isShowOnMainPage() {
         return showOnMainPage;
     }
 
-    public void setShowOnMainPage(boolean showOnMainPage) {
+    public void setShowOnMainPage(Boolean showOnMainPage) {
         this.showOnMainPage = showOnMainPage;
     }
 
