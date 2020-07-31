@@ -44,8 +44,8 @@ public class Article {
     @Column(length = 100)
     private String changedBy;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "article", orphanRemoval = true)
-    @Cascade({org.hibernate.annotations.CascadeType.ALL })
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "article")
+    @Cascade({org.hibernate.annotations.CascadeType.MERGE })
     private Set<Comment> comments;
 
     public Article() {

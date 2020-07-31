@@ -6,9 +6,13 @@ import com.apps.work.model.Page;
 import com.apps.work.repository.ArticleRepository;
 import com.apps.work.repository.CommentRepository;
 import com.apps.work.service.ArticleService;
+import com.apps.work.util.CcmsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,8 +50,25 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
-    public Article createArticle(Article article) {
-        return articleRepository.save(article);
+    public Article createArticle(Article article) throws IOException {
+        boolean add = false;
+        if(article.getId() == null) {
+            add = true;
+        }
+        if(add) article.setCreatedOn(new Date(Calendar.getInstance().getTimeInMillis()));
+        else article.setChangedOn(new Date(Calendar.getInstance().getTimeInMillis()));
+        Article article1 = articleRepository.save(article);
+        if(article1.getAuthor() == null) {
+            article1.setAuthor("");
+        }
+        if(add) {
+            CcmsUtil.makeSearchIndex(article1.getId() + "", article1.getSeoUri(), article1.getArticleTitle(),
+                    article1.getArticleBody(), article1.getAuthor(), article1.getCreatedOn().toString());
+        } else {
+            CcmsUtil.updateSearchIndex(article1.getId() + "", article1.getSeoUri(), article1.getArticleTitle(),
+                    article1.getArticleBody(), article1.getAuthor(), article1.getCreatedOn().toString());
+        }
+        return article1;
     }
 
     @Override

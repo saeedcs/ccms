@@ -49,19 +49,15 @@ public class SearchController {
                     new String[] {AppConstants.TITLE, AppConstants.BODY}, analyzer);
             Query query = parser.parse(str);
             ScoreDoc[] hits = isearcher.search(query, AppConstants.RECORDS_PER_PAGE).scoreDocs;
-            int offset = 0;
-            if(page != null && !page.equals("")) {
-                offset = Integer.parseInt(page) * AppConstants.RECORDS_PER_PAGE;
+            int offset, count = 0;
+
+            if(page == null || page.equals("")) {
+                page = "1";
             }
-            /*for (ScoreDoc hit : hits) {
-                Map<String, String> posts = new HashMap<>();
-                Document hitDoc = isearcher.doc(hit.doc);
-                posts.put(AppConstants.TITLE, hitDoc.get(AppConstants.TITLE));
-                posts.put(AppConstants.BODY, hitDoc.get(AppConstants.BODY));
-                listPosts.add(posts);
-            }*/
-            int count = Math.min(hits.length - offset, AppConstants.RECORDS_PER_PAGE);
-            for(int i = count; i < (count + AppConstants.RECORDS_PER_PAGE); i++) {
+            offset = (Integer.parseInt(page) - 1) * AppConstants.RECORDS_PER_PAGE;
+            count = Math.min(hits.length - offset, AppConstants.RECORDS_PER_PAGE);
+
+            for(int i = offset; i < count; i++) {
                 ScoreDoc hit = hits[i];
                 Map<String, String> posts = new HashMap<>();
                 Document hitDoc = isearcher.doc(hit.doc);
@@ -73,6 +69,14 @@ public class SearchController {
                 posts.put(AppConstants.DATE, hitDoc.get(AppConstants.DATE));
                 listPosts.add(posts);
             }
+
+            /*for (ScoreDoc hit : hits) {
+                Map<String, String> posts = new HashMap<>();
+                Document hitDoc = isearcher.doc(hit.doc);
+                posts.put(AppConstants.TITLE, hitDoc.get(AppConstants.TITLE));
+                posts.put(AppConstants.BODY, hitDoc.get(AppConstants.BODY));
+                listPosts.add(posts);
+            }*/
             ireader.close();
             directory.close();
 

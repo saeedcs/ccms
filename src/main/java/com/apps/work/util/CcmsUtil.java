@@ -6,12 +6,14 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -42,7 +44,7 @@ public class CcmsUtil {
 
     public static void makeSearchIndex(String id, String seoUri, String title, String body, String author, String date) throws IOException {
         Analyzer analyzer = new StandardAnalyzer();
-        Path indexPath = Files.createTempDirectory(AppConstants.INDEXING_DIR);
+        Path indexPath = Paths.get(AppConstants.INDEXING_DIR);
         Directory directory = FSDirectory.open(indexPath);
         IndexWriterConfig config = new IndexWriterConfig(analyzer);
         IndexWriter iwriter = new IndexWriter(directory, config);
@@ -54,6 +56,23 @@ public class CcmsUtil {
         doc.add(new Field(AppConstants.AUTHOR, author, TextField.TYPE_STORED));
         doc.add(new Field(AppConstants.DATE, date, TextField.TYPE_STORED));
         iwriter.addDocument(doc);
+        iwriter.close();
+    }
+
+    public static void updateSearchIndex(String id, String seoUri, String title, String body, String author, String date) throws IOException {
+        Analyzer analyzer = new StandardAnalyzer();
+        Path indexPath = Paths.get(AppConstants.INDEXING_DIR);
+        Directory directory = FSDirectory.open(indexPath);
+        IndexWriterConfig config = new IndexWriterConfig(analyzer);
+        IndexWriter iwriter = new IndexWriter(directory, config);
+        Document doc = new Document();
+        doc.add(new Field(AppConstants.ID, id, TextField.TYPE_STORED));
+        doc.add(new Field(AppConstants.SEO_URI, seoUri, TextField.TYPE_STORED));
+        doc.add(new Field(AppConstants.TITLE, title, TextField.TYPE_STORED));
+        doc.add(new Field(AppConstants.BODY, body, TextField.TYPE_STORED));
+        doc.add(new Field(AppConstants.AUTHOR, author, TextField.TYPE_STORED));
+        doc.add(new Field(AppConstants.DATE, date, TextField.TYPE_STORED));
+        iwriter.updateDocument(new Term(AppConstants.ID, id), doc);
         iwriter.close();
     }
 }
