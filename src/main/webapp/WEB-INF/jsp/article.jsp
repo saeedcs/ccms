@@ -25,7 +25,7 @@
                 </div>
             </div>
             <c:forEach items="${articles}" var="article">
-                <a href="/article/view?id=${article.id}" class="post-list">
+                <a href="/article/view/${article.seoUri}" class="post-list">
                     <div class="description">
                         <h3>${article.articleTitle}</h3>
 

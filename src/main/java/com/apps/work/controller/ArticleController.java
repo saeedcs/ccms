@@ -44,13 +44,13 @@ public class ArticleController {
     }
 
     //@Secured("USER")
-    @RequestMapping(value = "/view", method = RequestMethod.GET)
-    public String viewArticle(ModelMap model, @RequestParam String id) {
+    @RequestMapping(value = "/view/{uri}", method = RequestMethod.GET)
+    public String viewArticle(ModelMap model, @PathVariable String uri) {
         try {
-            Optional<Article> articleOptional = articleService.getArticle(Integer.parseInt(id));
+            Optional<Article> articleOptional = Optional.ofNullable(articleService.findBySeoUri(uri));
             if (articleOptional.isPresent()) {
                 model.addAttribute("article", articleOptional.get());
-                List<Comment> commentList = articleService.getCommentsByArticleId(id);
+                List<Comment> commentList = articleService.getCommentsByArticleId(articleOptional.get().getId() + "");
                 model.addAttribute("comments", commentList);
             }
         } catch (Exception e) {
