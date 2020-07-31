@@ -44,13 +44,8 @@
                 <textarea id="comment" name="comment" class="md-textarea form-control" rows="3" placeholder="Write your comment here..."></textarea>
             </div>
             <div class="form-action">
-                <div class="item">
-                    <buton type="Add Comment" class="btn btn-primary" onclick="article.addComment()">Add Comment</buton>
-                </div>
-
-                <div class="item text-right">
-                    <buton type="reset" class="btn btn-light">Cancel</buton>
-                </div>
+                <p></p>
+                <buton type="Add Comment" class="btn btn-primary" onclick="article.addComment()">Add Comment</buton>
             </div>
     </div>
     <div class="col-md-2 google-add-vertical">
@@ -76,26 +71,13 @@
                             <img src="http://placehold.it/80" class="img-circle img-responsive" alt="" width="50px"/></div>
                         <div class="col-xs-10 col-md-11">
                             <div>
-                                <a href="http://www.jquery2dotnet.com/2013/10/google-style-login-page-desing-usign.html"></a>
                                 <div class="mic-info">
-<%--                                    By: <a href="#">Bhaumik Patel</a>--%>
                                   <small> <span style="color:#ff0000;"> on 2 Aug 2013</span> </small>
                                 </div>
                             </div>
                             <div class="comment-text">
                                 <h6  style="color:black"> ${comments.commentText}</h6>
                             </div>
-                            <%--<div class="action">--%>
-                            <%--<button type="button" class="btn btn-primary btn-xs" title="Edit">--%>
-                            <%--<span class="glyphicon glyphicon-pencil"></span>--%>
-                            <%--</button>--%>
-                            <%--<button type="button" class="btn btn-success btn-xs" title="Approved">--%>
-                            <%--<span class="glyphicon glyphicon-ok"></span>--%>
-                            <%--</button>--%>
-                            <%--<button type="button" class="btn btn-danger btn-xs" title="Delete">--%>
-                            <%--<span class="glyphicon glyphicon-trash"></span>--%>
-                            <%--</button>--%>
-                            <%--</div>--%>
                         </div>
                     </div>
                 </li>
