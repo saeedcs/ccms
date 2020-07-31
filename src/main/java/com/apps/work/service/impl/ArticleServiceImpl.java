@@ -56,7 +56,13 @@ public class ArticleServiceImpl implements ArticleService{
             add = true;
         }
         if(add) article.setCreatedOn(new Date(Calendar.getInstance().getTimeInMillis()));
-        else article.setChangedOn(new Date(Calendar.getInstance().getTimeInMillis()));
+        else {
+            article.setChangedOn(new Date(Calendar.getInstance().getTimeInMillis()));
+            Article article2 = articleRepository.getOne(article.getId());
+            article.setCreatedBy(article2.getCreatedBy());
+            article.setCreatedOn(article2.getCreatedOn());
+            article.setAuthor(article2.getAuthor());
+        }
         Article article1 = articleRepository.save(article);
         if(article1.getAuthor() == null) {
             article1.setAuthor("");
