@@ -35,6 +35,7 @@ public class PageController {
     public String renderPageList(ModelMap model) {
         try {
             model.addAttribute("pagesMain", appService.getPageTitles());
+            model.addAttribute("catMain", appService.getCategoryList());
             model.addAttribute("pages", pageService.getPageList());
         } catch(Exception e) {
             logger.error(e);

@@ -10,7 +10,8 @@
 </jsp:include>--%>
 <c:import url="common/headernav.jsp"/>
 <jsp:include page="common/member-links.jsp" />
-<jsp:include page="common/categories.jsp" />
+<c:set var="catMain" value="${catMain}" scope="request"/>
+<c:import url="common/categories.jsp" />
 <div class="content">
     <div class="row">
         <div class="col-md-10">
