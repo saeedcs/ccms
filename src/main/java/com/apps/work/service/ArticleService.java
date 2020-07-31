@@ -4,6 +4,7 @@ import com.apps.work.model.Article;
 import com.apps.work.model.Comment;
 import com.apps.work.model.Page;
 
+import java.io.IOException;
 import java.util.*;
 
 public interface ArticleService {
@@ -14,7 +15,7 @@ public interface ArticleService {
 
     Comment addComment(String comment, String id);
 
-    Article createArticle(Article article);
+    Article createArticle(Article article) throws IOException;
 
     Article findBySeoUriAndIdNot(String seoUri, String id);
 
