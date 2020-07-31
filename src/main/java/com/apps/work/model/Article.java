@@ -197,7 +197,7 @@ public class Article {
         result = 31 * result + (createdBy != null ? createdBy.hashCode() : 0);
         result = 31 * result + (changedOn != null ? changedOn.hashCode() : 0);
         result = 31 * result + (changedBy != null ? changedBy.hashCode() : 0);
-        result = 31 * result + (comments != null ? comments.hashCode() : 0);
+
         return result;
     }
 
@@ -215,7 +215,6 @@ public class Article {
                 ", createdBy='" + createdBy + '\'' +
                 ", changedOn=" + changedOn +
                 ", changedBy='" + changedBy + '\'' +
-                ", comments=" + comments +
                 '}';
     }
 }

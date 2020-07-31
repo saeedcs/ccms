@@ -19,4 +19,6 @@ public interface ArticleService {
     Article findBySeoUriAndIdNot(String seoUri, String id);
 
     void deleteArticle(String idStr);
+
+    List<Comment> getCommentsByArticleId(String articleId);
 }

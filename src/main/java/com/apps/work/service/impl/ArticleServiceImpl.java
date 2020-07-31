@@ -59,6 +59,8 @@ public class ArticleServiceImpl implements ArticleService{
         comment1.setArticle(article);
         return commentRepository.save(comment1);
     }
-
-
+    @Override
+    public List<Comment> getCommentsByArticleId(String articleId) {
+        return commentRepository.findAllByArticle_Id(Integer.parseInt(articleId));
+    }
 }
