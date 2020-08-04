@@ -175,6 +175,7 @@
                 params['requestType'] = appObjects.REQUEST_TYPE.post;
                 //params['contentType'] = 'application/json';
                 doAjax(params);
+                document.getElementById('comment').value = '';
             },
             doneAddingComment: function (response) {
                 console.log("Comment added" );
