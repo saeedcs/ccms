@@ -63,6 +63,8 @@
                     </span>
         </div>
         <c:forEach items="${comments}" var="comments" >
+<%--        <c:set var="comments" scope="session" value="${comments}"/>--%>
+<%--            <c:if test = "${comments.isApproved != false}">--%>
         <div class="panel-body" >
             <ul class="list-group"  >
                 <li class="list-group-item" style="background-color: aliceblue; width:50%; height:80px" >
@@ -76,12 +78,13 @@
                                 </div>
                             </div>
                             <div class="comment-text">
-                                <h6  style="color:black"> ${comments.commentText}</h6>
+                                <h6  style="color:black"> ${comments.commentText} </h6>--%>
                             </div>
                         </div>
                     </div>
                 </li>
             </ul>
+<%--            </c:if>--%>
             </c:forEach>
         </div>
 
@@ -165,6 +168,7 @@
                 let data = {};
                 data['comment'] = comment;
                 data['articleId'] = ${article.id};
+                data['isApproved'] = false;
                 console.log(data);
 
                 let params = $.extend({}, doAjax_params_default);

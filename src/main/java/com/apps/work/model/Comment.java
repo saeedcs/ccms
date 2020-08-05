@@ -13,6 +13,9 @@ public class Comment {
     @Column(columnDefinition="TEXT")
     private String commentText;
 
+    @Column
+    private Boolean isApproved;
+
     @Column(name = "created_on", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
@@ -34,9 +37,10 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(Integer id, String commentText, Date createdOn, String createdBy, Date changedOn, String changedBy, Article article) {
+    public Comment(Integer id, String commentText, Boolean isApproved, Date createdOn, String createdBy, Date changedOn, String changedBy, Article article) {
         this.id = id;
         this.commentText = commentText;
+        this.isApproved = isApproved;
         this.createdOn = createdOn;
         this.createdBy = createdBy;
         this.changedOn = changedOn;
@@ -58,6 +62,14 @@ public class Comment {
 
     public void setCommentText(String commentText) {
         this.commentText = commentText;
+    }
+
+    public Boolean getApproved() {
+        return isApproved;
+    }
+
+    public void setApproved(Boolean approved) {
+        isApproved = approved;
     }
 
     public Date getCreatedOn() {
@@ -109,20 +121,24 @@ public class Comment {
 
         if (id != null ? !id.equals(comment.id) : comment.id != null) return false;
         if (commentText != null ? !commentText.equals(comment.commentText) : comment.commentText != null) return false;
+        if (isApproved != null ? !isApproved.equals(comment.isApproved) : comment.isApproved != null) return false;
         if (createdOn != null ? !createdOn.equals(comment.createdOn) : comment.createdOn != null) return false;
         if (createdBy != null ? !createdBy.equals(comment.createdBy) : comment.createdBy != null) return false;
         if (changedOn != null ? !changedOn.equals(comment.changedOn) : comment.changedOn != null) return false;
-        return changedBy != null ? changedBy.equals(comment.changedBy) : comment.changedBy == null;
+        if (changedBy != null ? !changedBy.equals(comment.changedBy) : comment.changedBy != null) return false;
+        return article != null ? article.equals(comment.article) : comment.article == null;
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (commentText != null ? commentText.hashCode() : 0);
+        result = 31 * result + (isApproved != null ? isApproved.hashCode() : 0);
         result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);
         result = 31 * result + (createdBy != null ? createdBy.hashCode() : 0);
         result = 31 * result + (changedOn != null ? changedOn.hashCode() : 0);
         result = 31 * result + (changedBy != null ? changedBy.hashCode() : 0);
+        result = 31 * result + (article != null ? article.hashCode() : 0);
         return result;
     }
 
@@ -131,10 +147,12 @@ public class Comment {
         return "Comment{" +
                 "id=" + id +
                 ", commentText='" + commentText + '\'' +
+                ", isApproved=" + isApproved +
                 ", createdOn=" + createdOn +
                 ", createdBy='" + createdBy + '\'' +
                 ", changedOn=" + changedOn +
                 ", changedBy='" + changedBy + '\'' +
+                ", article=" + article +
                 '}';
     }
 }

@@ -30,6 +30,9 @@ public class AppService {
 
     private List<Category> categoryList;
 
+    @Autowired
+    private CommentRepository commentRepository;
+
     @PostConstruct
     public void doDbInserts() {
        /* Role r1 = new Role();
@@ -90,5 +93,9 @@ public class AppService {
 
     public void setCategoryList(List<Category> categoryList) {
         this.categoryList = categoryList;
+    }
+
+    public List<Comment> getCommentsByIsApproved(Boolean isApproved) {
+        return commentRepository.findAllByIsApproved(isApproved);
     }
 }

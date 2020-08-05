@@ -1,5 +1,7 @@
 package com.apps.work.controller;
 
+import com.apps.work.model.Article;
+import com.apps.work.model.Comment;
 import com.apps.work.model.Page;
 import com.apps.work.service.AppService;
 import com.apps.work.service.PageService;
@@ -64,6 +66,23 @@ public class AppController {
     @ResponseBody
     public View getFeed() {
         return view;
+    }
+
+    //@Secured("USER")
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String viewComments(ModelMap model, @PathVariable Boolean isApproved) {
+        try {
+                List<Comment> commentList = appService.getCommentsByIsApproved(isApproved);
+                model.addAttribute("comments", commentList);
+
+        } catch (Exception e) {
+            logger.error(e);
+        }
+        model.addAttribute("pagesMain", appService.getPageTitles());
+        if(isApproved == true)
+            return "view-article";
+        else
+            return "comments-approval";
     }
 
 }
