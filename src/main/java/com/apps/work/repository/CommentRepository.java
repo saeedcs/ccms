@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
     public List<Comment> findAllByArticle_Id(Integer articleId);
-    public List<Comment> findAllByIsApproved(Boolean isApproved);
+    public List<Comment> findAllByIsApproved(boolean isApproved);
 }

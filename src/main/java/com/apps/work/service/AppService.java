@@ -95,7 +95,18 @@ public class AppService {
         this.categoryList = categoryList;
     }
 
+
     public List<Comment> getCommentsByIsApproved(Boolean isApproved) {
         return commentRepository.findAllByIsApproved(isApproved);
+    }
+
+    public Comment approveComment(String commentId, Boolean isApproved) {
+        Comment comment1 = new Comment();
+        comment1.setId(Integer.parseInt(commentId));
+        comment1.setApproved(isApproved);
+//        Article article = new Article();
+//        article.setId(Integer.parseInt(id));
+//        comment1.setArticle(article);
+        return commentRepository.save(comment1);
     }
 }

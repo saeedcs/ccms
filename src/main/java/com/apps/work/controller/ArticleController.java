@@ -97,10 +97,10 @@ public class ArticleController {
     @RequestMapping(value = "/add-comment", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<JSONObject> addComment(ModelMap model, @RequestParam String comment,
-                                                 @RequestParam String articleId) {
+                                                 @RequestParam String articleId, @RequestParam Boolean isApproved) {
         JSONObject result = new JSONObject();
         try {
-            articleService.addComment(comment, articleId);
+            articleService.addComment(comment, articleId, isApproved);
 
         } catch (Exception e) {
             logger.error(e);

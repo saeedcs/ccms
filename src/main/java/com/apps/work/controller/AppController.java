@@ -69,20 +69,34 @@ public class AppController {
     }
 
     //@Secured("USER")
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public String viewComments(ModelMap model, @PathVariable Boolean isApproved) {
+    @RequestMapping(value = "/approval", method = RequestMethod.GET)
+    public String viewComments(ModelMap model) {
         try {
-                List<Comment> commentList = appService.getCommentsByIsApproved(isApproved);
+                List<Comment> commentList = appService.getCommentsByIsApproved(false);
                 model.addAttribute("comments", commentList);
 
         } catch (Exception e) {
             logger.error(e);
         }
         model.addAttribute("pagesMain", appService.getPageTitles());
-        if(isApproved == true)
-            return "view-article";
-        else
             return "comments-approval";
     }
+
+    //@Secured("USER")
+    @RequestMapping(value = "/approve-comment", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<JSONObject> approveComment(ModelMap model,
+                                                     @RequestParam String commentId, @RequestParam Boolean isApproved) {
+        JSONObject result = new JSONObject();
+        try {
+            appService.approveComment(commentId, isApproved);
+
+        } catch (Exception e) {
+            logger.error(e);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
 
 }
