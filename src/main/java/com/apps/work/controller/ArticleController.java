@@ -33,9 +33,10 @@ public class ArticleController {
 
     //@Secured("USER")
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String renderArticleList(ModelMap model) {
+    public String renderArticleList(ModelMap model, @RequestParam(required = false) String cat) {
         try {
             model.addAttribute("articles", articleService.getArticleList());
+            model.addAttribute("catMain", appService.getCategoryList());
             model.addAttribute("pagesMain", appService.getPageTitles());
         } catch(Exception e) {
             logger.error(e);
@@ -52,6 +53,7 @@ public class ArticleController {
                 model.addAttribute("article", articleOptional.get());
                 List<Comment> commentList = articleService.getCommentsByArticleId(articleOptional.get().getId() + "");
                 model.addAttribute("comments", commentList);
+                model.addAttribute("catMain", appService.getCategoryList());
             }
         } catch (Exception e) {
             logger.error(e);
@@ -74,6 +76,7 @@ public class ArticleController {
             logger.error(e);
         }
         model.addAttribute("pagesMain", appService.getPageTitles());
+        model.addAttribute("catMain", appService.getCategoryList());
         return "create-article";
     }
 

@@ -52,6 +52,7 @@ public class PageController {
                 model.addAttribute("page", pageOptional.get());
             }
             model.addAttribute("pagesMain", appService.getPageTitles());
+            model.addAttribute("catMain", appService.getCategoryList());
         } catch (Exception e) {
             logger.error(e);
         }
@@ -69,6 +70,7 @@ public class PageController {
                 }
             }
             model.addAttribute("pagesMain", appService.getPageTitles());
+            model.addAttribute("catMain", appService.getCategoryList());
         } catch (Exception e) {
             logger.error(e);
         }
