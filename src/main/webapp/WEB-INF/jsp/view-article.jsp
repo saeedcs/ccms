@@ -76,14 +76,17 @@
                                 </div>
                             </div>
                             <div class="comment-text">
-                                <h6  style="color:black"> ${comments.commentText}</h6>
+                                <h6  style="color:black"> ${comments.commentText} </h6>
                             </div>
                         </div>
                     </div>
                 </li>
             </ul>
+
             </c:forEach>
         </div>
+    </div>
+</div>
 
 <jsp:include page="common/footer.jsp" />
 
@@ -165,6 +168,7 @@
                 let data = {};
                 data['comment'] = comment;
                 data['articleId'] = ${article.id};
+                data['isApproved'] = false;
                 console.log(data);
 
                 let params = $.extend({}, doAjax_params_default);
@@ -175,6 +179,7 @@
                 params['requestType'] = appObjects.REQUEST_TYPE.post;
                 //params['contentType'] = 'application/json';
                 doAjax(params);
+                document.getElementById('comment').value = '';
             },
             doneAddingComment: function (response) {
                 console.log("Comment added" );

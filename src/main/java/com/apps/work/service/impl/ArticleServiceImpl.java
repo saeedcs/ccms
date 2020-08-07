@@ -2,7 +2,6 @@ package com.apps.work.service.impl;
 
 import com.apps.work.model.Article;
 import com.apps.work.model.Comment;
-import com.apps.work.model.Page;
 import com.apps.work.repository.ArticleRepository;
 import com.apps.work.repository.CommentRepository;
 import com.apps.work.service.ArticleService;
@@ -78,9 +77,10 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
-    public Comment addComment(String comment, String id) {
+    public Comment addComment(String comment, String id, Boolean isApproved) {
         Comment comment1 = new Comment();
         comment1.setCommentText(comment);
+        comment1.setApproved(isApproved);
         Article article = new Article();
         article.setId(Integer.parseInt(id));
         comment1.setArticle(article);
