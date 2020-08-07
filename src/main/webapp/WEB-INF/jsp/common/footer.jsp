@@ -35,6 +35,8 @@
 <script>
     $(document).ready(function () {
         document.getElementById('subscribeEmail').addEventListener('keypress', e => home.onKeyPressed(e.key));
+
+        document.getElementById('search-str').addEventListener('keypress', e => home.onSearchKeyPressed(e.key));
     });
 </script>
 <script>
@@ -68,6 +70,11 @@
                 home.subscribeMe();
             }
         },
+        onSearchKeyPressed: function(key) {
+            if(key === 'Enter') {
+                home.searchButtonPressed();
+            }
+        },
         subscribeMe: function() {
             let data = {};
             data['email'] = document.getElementById('subscribeEmail').value;
@@ -93,6 +100,9 @@
                 xhr.setRequestHeader(header, token);
             });
         },
+        searchButtonPressed: function () {
+            window.location.href = appRoutes.SEARCH + '/s?str=' + document.getElementById('search-str').value;
+        }
     }
 </script>
 </body>

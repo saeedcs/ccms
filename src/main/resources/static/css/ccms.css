@@ -5,3 +5,6 @@
 .visible {
     visibility: visible;
 }
+.search-page-buttons {
+    text-align: center;
+}

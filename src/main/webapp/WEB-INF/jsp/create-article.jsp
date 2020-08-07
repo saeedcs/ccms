@@ -225,7 +225,7 @@
             data['articleTitle'] = title;
             data['articleBody'] = body;
             data['seoUri'] = seoUri;
-
+            data['mainPageImg'] = mainPageImg;
 
 
             if(id != undefined && id != null) {

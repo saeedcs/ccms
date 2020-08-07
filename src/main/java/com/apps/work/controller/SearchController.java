@@ -11,6 +11,9 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
@@ -36,7 +39,7 @@ public class SearchController {
     private Log logger = LogFactory.getLog(this.getClass());
 
     //@Secured("USER")
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/s", method = RequestMethod.GET)
     public String renderPageList(ModelMap model, @RequestParam String str, @RequestParam(required = false) String page) {
         List<Map<String, String>> listPosts = new ArrayList();
         try {
@@ -48,16 +51,17 @@ public class SearchController {
             MultiFieldQueryParser parser = new MultiFieldQueryParser(
                     new String[] {AppConstants.TITLE, AppConstants.BODY}, analyzer);
             Query query = parser.parse(str);
-            ScoreDoc[] hits = isearcher.search(query, AppConstants.RECORDS_PER_PAGE).scoreDocs;
+            ScoreDoc[] hits = isearcher.search(query, ireader.numDocs()).scoreDocs;
             int offset, count = 0;
 
             if(page == null || page.equals("")) {
                 page = "1";
             }
-            offset = (Integer.parseInt(page) - 1) * AppConstants.RECORDS_PER_PAGE;
+            int currentPage = Integer.parseInt(page);
+            offset = (currentPage - 1) * AppConstants.RECORDS_PER_PAGE;
             count = Math.min(hits.length - offset, AppConstants.RECORDS_PER_PAGE);
 
-            for(int i = offset; i < count; i++) {
+            for(int i = offset; i < count + offset; i++) {
                 ScoreDoc hit = hits[i];
                 Map<String, String> posts = new HashMap<>();
                 Document hitDoc = isearcher.doc(hit.doc);
@@ -70,17 +74,21 @@ public class SearchController {
                 listPosts.add(posts);
             }
 
-            /*for (ScoreDoc hit : hits) {
-                Map<String, String> posts = new HashMap<>();
-                Document hitDoc = isearcher.doc(hit.doc);
-                posts.put(AppConstants.TITLE, hitDoc.get(AppConstants.TITLE));
-                posts.put(AppConstants.BODY, hitDoc.get(AppConstants.BODY));
-                listPosts.add(posts);
-            }*/
             ireader.close();
             directory.close();
-
+            float totalPages = hits.length / AppConstants.RECORDS_PER_PAGE;
+            int prevPage = 1;
+            int nextPage = 1;
+            if(currentPage > 1) {
+                prevPage = currentPage - 1;
+            }
+            if(totalPages > currentPage) {
+                nextPage = currentPage + 1;
+            }
             model.addAttribute("articles", listPosts);
+            model.addAttribute("prevPage", prevPage);
+            model.addAttribute("nextPage", nextPage);
+            model.addAttribute("str", str);
         } catch(Exception e) {
             logger.error(e);
         }

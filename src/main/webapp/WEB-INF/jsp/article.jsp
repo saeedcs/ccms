@@ -26,6 +26,11 @@
             </div>
             <c:forEach items="${articles}" var="article">
                 <a href="/article/view/${article.seoUri}" class="post-list">
+                    <c:if test="${article.mainPageImg != null}" >
+                        <div class="post-thumbnail">
+                            <img src="${article.mainPageImg}" alt="" />
+                        </div>
+                    </c:if>
                     <div class="description">
                         <h3>${article.articleTitle}</h3>
 
