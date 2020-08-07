@@ -36,8 +36,8 @@
                 <i class="fa fa-search"></i>
 
                 <div class="search-bar">
-                    <input type="text" placeholder="Search" class="form-control" />
-                    <button><i class="fa fa-search"></i></button>
+                    <input id="search-str" type="text" placeholder="Search" class="form-control" />
+                    <button onclick="home.searchButtonPressed();"><i class="fa fa-search"></i></button>
                 </div>
             </div>
 

@@ -49,5 +49,6 @@ const appRoutes = {
     PAGE_DELETE: '/delete',
     SUBSCRIBE: '/subscribe',
     ARTICLE_CREATE: '/create',
+    SEARCH: '/search',
 
 }
