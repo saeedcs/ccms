@@ -22,6 +22,9 @@ public class AppService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private SubscribedUserRepository subscribedUserRepository;
+
     private Map<String, String> applicationMap;
 
     private List<Page> pages;
@@ -108,5 +111,11 @@ public class AppService {
 //        article.setId(Integer.parseInt(id));
 //        comment1.setArticle(article);
         return commentRepository.save(comment1);
+    }
+
+    public SubscribedUser userSubscribe(String email) {
+        SubscribedUser subscribedUser = new SubscribedUser();
+        subscribedUser.setEmail(email);
+        return subscribedUserRepository.save(subscribedUser);
     }
 }

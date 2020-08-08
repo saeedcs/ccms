@@ -85,8 +85,7 @@ public class AppController {
     //@Secured("USER")
     @RequestMapping(value = "/approve-comment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<JSONObject> approveComment(ModelMap model,
-                                                     @RequestParam String commentId, @RequestParam Boolean isApproved) {
+    public ResponseEntity<JSONObject> approveComment(@RequestParam String commentId, @RequestParam Boolean isApproved) {
         JSONObject result = new JSONObject();
         try {
             appService.approveComment(commentId, isApproved);
@@ -97,6 +96,19 @@ public class AppController {
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
-
+    //@Secured("USER")
+    @RequestMapping(value = "/subscribe", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<JSONObject> postUserSubscribe(@RequestParam String email) {
+        JSONObject result = new JSONObject();
+        try {
+            appService.userSubscribe(email);
+            result.put("subscribed", true);
+            return ResponseEntity.status(HttpStatus.OK).body(result);
+        } catch (Exception e) {
+            logger.error(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
+        }
+    }
 
 }
