@@ -61,7 +61,7 @@
         </div>
 </div>
 
-
+<jsp:include page="common/footer.jsp" />
 
 <script>
     var comment = {
@@ -70,6 +70,25 @@
             data['commentId'] = id;
             data['isApproved'] = true;
             console.log(data);
+
+            let params = $.extend({}, doAjax_params_default);
+            params['url'] = appRoutes.APP + appRoutes.APPROVE_COMMENT;
+            params['data'] = data;
+            params['beforeSendCallbackFunction'] = comment.beforeAjax;
+            params['successCallbackFunction'] = comment.doneApprovingComment;
+            params['requestType'] = appObjects.REQUEST_TYPE.post;
+            //params['contentType'] = 'application/json';
+            doAjax(params);
+        },
+        beforeAjax: function() {
+            let header = $("meta[name='_csrf_header']").attr("content");
+            let token = $("meta[name='_csrf']").attr("content");
+            $(document).ajaxSend(function (e, xhr, options) {
+                xhr.setRequestHeader(header, token);
+            });
+        },
+        doneApprovingComment: function() {
+
         }
     }
 </script>
