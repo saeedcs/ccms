@@ -10,6 +10,8 @@ import com.apps.work.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("authService")
 public class AuthServiceImpl implements AuthService {
     @Autowired
@@ -55,6 +57,16 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public User getUserByUsername(String username) {
         return userRepository.getUserByUsername(username);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAllByOrderByIdAsc();
+    }
+
+    @Override
+    public List<Role> getAllRoles() {
+        return (List<Role>) roleRepository.findAll();
     }
 
 }

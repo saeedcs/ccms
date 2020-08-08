@@ -18,7 +18,7 @@
             <li><a href="/page/"><i class="fa fa-file"></i> <span>Pages</span></a></li>
             <li><a href="#"><i class="fa fa-folder-open"></i> <span>Categories</span></a></li>
             <li><a href="#"><i class="fa fa-thumbs-up"></i> <span>Approve Comments</span></a></li>
-            <li><a href="#"><i class="fa fa-user"></i> <span>Staff</span></a></li>
+            <li><a href="#"><i class="fa fa-user"></i> <span>Assign Roles</span></a></li>
         </ul>
 
         <h3>Settings</h3>

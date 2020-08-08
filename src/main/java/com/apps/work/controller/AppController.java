@@ -3,7 +3,9 @@ package com.apps.work.controller;
 import com.apps.work.model.Article;
 import com.apps.work.model.Comment;
 import com.apps.work.model.Page;
+import com.apps.work.model.User;
 import com.apps.work.service.AppService;
+import com.apps.work.service.AuthService;
 import com.apps.work.service.PageService;
 import com.apps.work.service.RssFeedView;
 import com.apps.work.util.KeyValue;
@@ -31,6 +33,9 @@ public class AppController {
 
     @Autowired
     private AppService appService;
+
+    @Autowired
+    private AuthService authService;
 
     @Autowired
     private RssFeedView view;
@@ -79,7 +84,7 @@ public class AppController {
             logger.error(e);
         }
         model.addAttribute("pagesMain", appService.getPageTitles());
-            return "comments-approval";
+        return "comments-approval";
     }
 
     //@Secured("USER")
@@ -96,6 +101,7 @@ public class AppController {
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
     //@Secured("USER")
     @RequestMapping(value = "/subscribe", method = RequestMethod.POST)
     @ResponseBody
@@ -111,4 +117,33 @@ public class AppController {
         }
     }
 
+    //@Secured("USER")
+    @RequestMapping(value = "/assign-roles", method = RequestMethod.GET)
+    public String assignRoles(ModelMap model) {
+        try {
+            model.addAttribute("users", authService.getAllUsers());
+            model.addAttribute("roles", authService.getAllRoles());
+        } catch (Exception e) {
+            logger.error(e);
+        }
+        model.addAttribute("pagesMain", appService.getPageTitles());
+        model.addAttribute("catMain", appService.getCategoryList());
+        return "assign-roles";
+    }
+
+    //@Secured("USER")
+    @RequestMapping(value = "/assign-roles-enabled", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<JSONObject> postEnabledChange(@RequestParam String username, @RequestParam Boolean enabled) {
+        JSONObject result = new JSONObject();
+        try {
+            User user = authService.getUserByUsername(username);
+            user.setEnabled(enabled);
+            authService.saveUser(user);
+            return ResponseEntity.status(HttpStatus.OK).body(result);
+        } catch (Exception e) {
+            logger.error(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
+        }
+    }
 }
