@@ -1,5 +1,8 @@
-INSERT INTO cms.users_roles (user_id, role_id) VALUES (10, 11);
-INSERT INTO cms.users_roles (user_id, role_id) VALUES (10, 12);
-INSERT INTO cms.users_roles (user_id, role_id) VALUES (21, 22);
-INSERT INTO cms.users_roles (user_id, role_id) VALUES (23, 22);
-INSERT INTO cms.users_roles (user_id, role_id) VALUES (25, 22);
+insert into cms.users_roles (user_id, role_id) values (10, 11);
+insert into cms.users_roles (user_id, role_id) values (24, 11);
+insert into cms.users_roles (user_id, role_id) values (10, 12);
+insert into cms.users_roles (user_id, role_id) values (24, 12);
+insert into cms.users_roles (user_id, role_id) values (21, 22);
+insert into cms.users_roles (user_id, role_id) values (23, 22);
+insert into cms.users_roles (user_id, role_id) values (24, 22);
+insert into cms.users_roles (user_id, role_id) values (25, 22);
