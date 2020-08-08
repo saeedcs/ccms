@@ -14,9 +14,10 @@
 
         <h3>Manage</h3>
         <ul class="menu">
-            <li><a href="#" class="active"><i class="fa fa-file-text"></i> Posts</a></li>
-            <li><a href="#"><i class="fa fa-file"></i> <span>Pages</span></a></li>
-            <li><a href="#"><i class="fa fa-tag"></i> <span>Tags</span></a></li>
+            <li><a href="/article/" class="active"><i class="fa fa-file-text"></i>Articles</a></li>
+            <li><a href="/page/"><i class="fa fa-file"></i> <span>Pages</span></a></li>
+            <li><a href="#"><i class="fa fa-folder-open"></i> <span>Categories</span></a></li>
+            <li><a href="#"><i class="fa fa-thumbs-up"></i> <span>Approve Comments</span></a></li>
             <li><a href="#"><i class="fa fa-user"></i> <span>Staff</span></a></li>
         </ul>
 
@@ -26,7 +27,7 @@
             <li><a href="#"><i class="fa fa-paint-brush"></i> <span>Design</span></a></li>
             <li><a href="#"><i class="fa fa-code"></i> <span>Code injection</span></a></li>
             <li><a href="#"><i class="fa fa-codepen"></i> <span>Integration</span></a></li>
-            <li><a href="#"><i class="fa fa-flask"></i> <span>Labs</span></a></li>
+            <li><a href="/logout"><i class="fa fa-window-close-o"></i> <span>Logout</span></a></li>
         </ul>
     </div>
 
