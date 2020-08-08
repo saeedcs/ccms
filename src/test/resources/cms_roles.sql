@@ -1,3 +1,3 @@
-INSERT INTO cms.roles (id, name) VALUES (11, 'ROLE_ADMIN');
-INSERT INTO cms.roles (id, name) VALUES (12, 'ROLE_USER');
-INSERT INTO cms.roles (id, name) VALUES (22, 'ROLE_MEMBER');
+insert into cms.roles (id, name) values (11, 'ROLE_ADMIN');
+insert into cms.roles (id, name) values (12, 'ROLE_USER');
+insert into cms.roles (id, name) values (22, 'ROLE_MEMBER');
