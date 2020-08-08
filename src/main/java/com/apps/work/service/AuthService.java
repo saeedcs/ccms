@@ -4,6 +4,8 @@ import com.apps.work.model.ForgetPassword;
 import com.apps.work.model.Role;
 import com.apps.work.model.User;
 
+import java.util.List;
+
 public interface AuthService {
     User checkUserExists(String username);
 
@@ -18,4 +20,8 @@ public interface AuthService {
     ForgetPassword findByCode(String code);
 
     User getUserByUsername(String username);
+
+    List<User> getAllUsers();
+
+    List<Role> getAllRoles();
 }

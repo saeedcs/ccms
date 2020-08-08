@@ -50,5 +50,6 @@ const appRoutes = {
     SUBSCRIBE: '/subscribe',
     ARTICLE_CREATE: '/create',
     SEARCH: '/search',
+    ASSIGN_ROLES_ENABLED: '/assign-roles-enabled',
 
 }
