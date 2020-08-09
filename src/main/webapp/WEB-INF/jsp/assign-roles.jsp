@@ -36,12 +36,7 @@
                             <option value="true" <c:if test="${user.enabled == true}">selected</c:if>>Yes</option>
                         </select>
                         </div>
-
-                            <%--<c:forEach items="${user.roles}" var="role">
-                                <div >${role.name}</div>
-                            </c:forEach>--%>
-                        <div >
-
+                        <div>
                             <select multiple onchange="assignRoles.performChange(this, '${user.username}');">
                                 <c:forEach items="${roles}" var="role1">
 

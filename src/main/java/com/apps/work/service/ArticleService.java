@@ -18,7 +18,7 @@ public interface ArticleService {
 
     Article findBySeoUriAndIdNot(String seoUri, String id);
 
-    void deleteArticle(String idStr);
+    void deleteArticle(String idStr) throws IOException;
 
     List<Comment> getCommentsByArticleId(String articleId);
 }

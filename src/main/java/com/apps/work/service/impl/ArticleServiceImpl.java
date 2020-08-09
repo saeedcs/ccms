@@ -43,8 +43,9 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
-    public void deleteArticle(String idStr) {
+    public void deleteArticle(String idStr) throws IOException {
         Integer id = Integer.parseInt(idStr);
+        CcmsUtil.updateDeleteSearchIndex(id);
         articleRepository.delete(articleRepository.getOne(id));
     }
 

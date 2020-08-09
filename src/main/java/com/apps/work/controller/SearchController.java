@@ -38,6 +38,8 @@ public class SearchController {
 
     private Log logger = LogFactory.getLog(this.getClass());
 
+    @Autowired
+    private AppService appService;
     //@Secured("USER")
     @RequestMapping(value = "/s", method = RequestMethod.GET)
     public String renderPageList(ModelMap model, @RequestParam String str, @RequestParam(required = false) String page) {
@@ -89,6 +91,8 @@ public class SearchController {
             model.addAttribute("prevPage", prevPage);
             model.addAttribute("nextPage", nextPage);
             model.addAttribute("str", str);
+            model.addAttribute("pagesMain", appService.getPageTitles());
+            model.addAttribute("catMain", appService.getCategoryList());
         } catch(Exception e) {
             logger.error(e);
         }
