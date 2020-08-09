@@ -1,13 +1,11 @@
 package com.apps.work.controller;
 
-import com.apps.work.model.Article;
-import com.apps.work.model.Comment;
-import com.apps.work.model.Page;
-import com.apps.work.model.User;
+import com.apps.work.model.*;
 import com.apps.work.service.AppService;
 import com.apps.work.service.AuthService;
 import com.apps.work.service.PageService;
 import com.apps.work.service.RssFeedView;
+import com.apps.work.util.AssignRoles;
 import com.apps.work.util.KeyValue;
 import net.minidev.json.JSONObject;
 import org.apache.commons.logging.Log;
@@ -139,6 +137,27 @@ public class AppController {
         try {
             User user = authService.getUserByUsername(username);
             user.setEnabled(enabled);
+            authService.saveUser(user);
+            return ResponseEntity.status(HttpStatus.OK).body(result);
+        } catch (Exception e) {
+            logger.error(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
+        }
+    }
+
+    //@Secured("USER")
+    @RequestMapping(value = "/assign-roles", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<JSONObject> postRolesChange(@RequestBody AssignRoles assignRoles) {
+        JSONObject result = new JSONObject();
+        try {
+            User user = authService.getUserByUsername(assignRoles.getUsername());
+            Set<Role> roles = new HashSet<>();
+            for(String role: assignRoles.getRoles()) {
+                Role role1 = authService.getRoleByName(role);
+                roles.add(role1);
+            }
+            user.setRoles(roles);
             authService.saveUser(user);
             return ResponseEntity.status(HttpStatus.OK).body(result);
         } catch (Exception e) {
