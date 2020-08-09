@@ -51,6 +51,7 @@ const appRoutes = {
     ARTICLE_CREATE: '/create',
     SEARCH: '/search',
     ASSIGN_ROLES_ENABLED: '/assign-roles-enabled',
+    ASSIGN_ROLES: '/assign-roles',
     APPROVE_COMMENT: '/approve-comment',
 
 }

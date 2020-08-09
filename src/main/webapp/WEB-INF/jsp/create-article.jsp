@@ -12,7 +12,7 @@
 <jsp:include page="common/member-links.jsp" />
 <jsp:include page="common/categories.jsp" />
 <div class="content">
-    <div class="alert alert-success invisible" role="alert">
+    <div id="alert-success" class="alert alert-success invisible" role="alert">
         <h4 class="alert-heading">
             <i class="fa fa-check"></i> Well done!
         </h4>
