@@ -5,6 +5,7 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.TextField;
+import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.store.Directory;
@@ -73,6 +74,17 @@ public class CcmsUtil {
         doc.add(new Field(AppConstants.AUTHOR, author, TextField.TYPE_STORED));
         doc.add(new Field(AppConstants.DATE, date, TextField.TYPE_STORED));
         iwriter.updateDocument(new Term(AppConstants.ID, id), doc);
+        iwriter.close();
+    }
+
+    public static void updateDeleteSearchIndex(Integer id) throws IOException {
+        Analyzer analyzer = new StandardAnalyzer();
+        Path indexPath = Paths.get(AppConstants.INDEXING_DIR);
+        Directory directory = FSDirectory.open(indexPath);
+        IndexWriterConfig config = new IndexWriterConfig(analyzer);
+        IndexWriter iwriter = new IndexWriter(directory, config);
+        DirectoryReader ireader = DirectoryReader.open(directory);
+        iwriter.deleteDocuments(new Term(AppConstants.ID, String.valueOf(id)));
         iwriter.close();
     }
 }
