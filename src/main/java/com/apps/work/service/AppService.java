@@ -2,12 +2,14 @@ package com.apps.work.service;
 
 import com.apps.work.model.*;
 import com.apps.work.repository.*;
+import com.apps.work.util.CcmsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.util.*;
 
 @Component
@@ -21,6 +23,8 @@ public class AppService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    private List<Category> categories;
 
     @Autowired
     private SubscribedUserRepository subscribedUserRepository;
@@ -68,7 +72,7 @@ public class AppService {
         for(Page page : pages) {
             pageTitles.add(page);
         }
-
+        categories = categoryRepository.findAllByShowOnMainPage(true);
         categoryList = categoryRepository.findAll();
     }
 
@@ -98,6 +102,10 @@ public class AppService {
         this.categoryList = categoryList;
     }
 
+    public List<Category> getCategories() { return categories; }
+
+    public void setCategories(List<Category> categories) { this.categories = categories; }
+
 
     public List<Comment> getCommentsByIsApproved(Boolean isApproved) {
         return commentRepository.findAllByIsApproved(isApproved);
@@ -118,4 +126,20 @@ public class AppService {
         subscribedUser.setEmail(email);
         return subscribedUserRepository.save(subscribedUser);
     }
+
+    public Optional<Category> getCategory(Integer id) {
+        return categoryRepository.findById(id);
+    }
+
+    public void deleteCategory(String idStr) {
+        Integer id = Integer.parseInt(idStr);
+        categoryRepository.delete(categoryRepository.getOne(id));
+    }
+    public Category createCategory(String catName) {
+        Category category1 = new Category();
+        category1.setCatName(catName);
+        category1.setCreatedOn(new Date(Calendar.getInstance().getTimeInMillis()));
+        return categoryRepository.save(category1);
+    }
+
 }
