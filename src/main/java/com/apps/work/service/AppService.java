@@ -29,7 +29,7 @@ public class AppService {
 
     private List<Page> pages;
 
-    private List<String> pageTitles;
+    private List<Page> pageTitles;
 
     private List<Category> categoryList;
 
@@ -66,7 +66,7 @@ public class AppService {
         pages = pageRepository.findAllByShowOnMainPage(true);
         pageTitles = new ArrayList<>();
         for(Page page : pages) {
-            pageTitles.add(page.getPageTitle());
+            pageTitles.add(page);
         }
 
         categoryList = categoryRepository.findAll();
@@ -82,11 +82,11 @@ public class AppService {
 
     public void setPages(List<Page> pages) { this.pages = pages; }
 
-    public List<String> getPageTitles() {
+    public List<Page> getPageTitles() {
         return pageTitles;
     }
 
-    public void setPageTitles(List<String> pageTitles) {
+    public void setPageTitles(List<Page> pageTitles) {
         this.pageTitles = pageTitles;
     }
 
