@@ -83,15 +83,15 @@ public class PageController {
     public ResponseEntity<JSONObject> postCreatePage(ModelMap model, @RequestBody(required = false) Page page) {
         JSONObject result = new JSONObject();
         try {
-            List<String> pageTitleList = appService.getPageTitles();
+            List<Page> pageTitleList = appService.getPageTitles();
             if(page.getShowOnMainPage()) {
                 if(!pageTitleList.contains(page.getPageTitle())) {
-                    pageTitleList.add(page.getPageTitle());
+                    pageTitleList.add(page);
                     appService.setPageTitles(pageTitleList);
                 }
             } else {
                 if(pageTitleList.contains(page.getPageTitle())) {
-                    pageTitleList.remove(page.getPageTitle());
+                    pageTitleList.remove(page);
                     appService.setPageTitles(pageTitleList);
                 }
             }

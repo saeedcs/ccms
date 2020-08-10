@@ -14,7 +14,7 @@
             <div class="navigation" data-aos="fade-down">
                 <ul>
                     <c:forEach items="${requestScope.pagesMain}" var="pageTitle">
-                    <li><a href="#">${pageTitle}</a></li>
+                    <li><a href="/page/view/${pageTitle.seoUri}">${pageTitle.pageTitle}</a></li>
                     </c:forEach>
                 </ul>
             </div>
