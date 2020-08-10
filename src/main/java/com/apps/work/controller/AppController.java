@@ -165,4 +165,83 @@ public class AppController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
         }
     }
+
+    //@Secured("USER")
+    @RequestMapping(value = "/category", method = RequestMethod.GET)
+    public String renderCategoryList(ModelMap model) {
+        try {
+            model.addAttribute("pagesMain", appService.getPageTitles());
+            model.addAttribute("catMain", appService.getCategoryList());
+            //model.addAttribute("pages", pageService.getPageList());
+        } catch(Exception e) {
+            logger.error(e);
+        }
+        return "category";
+    }
+
+    //@Secured("USER")
+    @RequestMapping(value = "/category/view/{id}", method = RequestMethod.GET)
+    public String viewCategory(ModelMap model, @PathVariable String id) {
+        try {
+            Optional<Category> categoryOptional = appService.getCategory(Integer.parseInt(id));
+            if (categoryOptional.isPresent()) {
+                model.addAttribute("category", categoryOptional.get());
+            }
+            model.addAttribute("pagesMain", appService.getPageTitles());
+            model.addAttribute("catMain", appService.getCategoryList());
+        } catch (Exception e) {
+            logger.error(e);
+        }
+        return "view-category";
+    }
+
+    //@Secured("USER")
+    @RequestMapping(value = "/category/create", method = RequestMethod.GET)
+    public String createCategory(ModelMap model, @RequestParam(required=false) String id) {
+        try {
+            if(id != null && !id.equals("")) {
+                Optional<Category> categoryOptional = appService.getCategory(Integer.parseInt(id));
+                if (categoryOptional.isPresent()) {
+                    model.addAttribute("category",categoryOptional.get());
+                }
+            }
+            model.addAttribute("pagesMain", appService.getPageTitles());
+            model.addAttribute("catMain", appService.getCategoryList());
+        } catch (Exception e) {
+            logger.error(e);
+        }
+        return "create-category";
+    }
+
+    //@Secured("USER")
+    @RequestMapping(value = "/category/create", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<JSONObject> postCreateCategory(ModelMap model, String catName) {
+        JSONObject result = new JSONObject();
+        try {
+
+            appService.createCategory(catName);
+
+        } catch (Exception e) {
+            logger.error(e);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    //@Secured("USER")
+    @RequestMapping(value = "/category/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<JSONObject> postDeleteCategory(@RequestParam String id) {
+        JSONObject result = new JSONObject();
+        try {
+            appService.deleteCategory(id);
+            result.put("deleted", true);
+            return ResponseEntity.status(HttpStatus.OK).body(result);
+        } catch (Exception e) {
+            logger.error(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
+        }
+    }
+
 }
